@@ -33,6 +33,10 @@ def preprocess_images(images_array):
 
 
 def create_model() -> Sequential:
+    """
+    Creates the model and loads weights as a start point if they exist.
+    :return: Keras Sequential model.
+    """
     if start_point != '':
         if os.path.isfile(start_point):
             return custom_network(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
@@ -65,6 +69,10 @@ def initialize_optimizer() -> Union[adam, rmsprop, sgd, adagrad, adadelta, adama
 
 
 def init_callbacks() -> []:
+    """
+    Initializes callbacks for the training procedure.
+    :return: the callbacks list.
+    """
     callbacks = []
     if not omit_checkpoint:
         # Create path for the file.
@@ -79,6 +87,7 @@ def init_callbacks() -> []:
 
 
 def save_results() -> None:
+    """ Saves the training results (final weights and history). """
     # Save weights.
     if not omit_weights:
         # Create path for the file.
