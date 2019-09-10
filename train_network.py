@@ -2,12 +2,12 @@ import os
 import pickle
 from typing import Union, Tuple, Any
 
-from keras_preprocessing.image import ImageDataGenerator
 from numpy import ndarray
 from tensorflow.python.keras import Sequential
 from tensorflow.python.keras.callbacks import ModelCheckpoint
 from tensorflow.python.keras.datasets import cifar10
 from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
+from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.utils import to_categorical
 
 from networks.custom_network import custom_network
