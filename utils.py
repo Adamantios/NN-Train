@@ -5,9 +5,11 @@ from os import path, makedirs
 
 START_POINT = ''
 SAVE_WEIGHTS = True
+SAVE_MODEL = True
 SAVE_CHECKPOINT = True
 SAVE_HIST = True
 WEIGHTS_FILENAME = 'out/network_weights.h5'
+MODEL_FILENAME = 'out/network.h5'
 CHECKPOINT_FILENAME = 'out/checkpoint.h5'
 HIST_FILENAME = 'out/train_history.pickle'
 OPTIMIZER = 'rmsprop'
@@ -42,6 +44,8 @@ def create_training_parser() -> ArgumentParser:
                         help='Filepath containing existing weights to initialize the model.')
     parser.add_argument('-ow', '--omit_weights', default=not SAVE_WEIGHTS, required=False, action='store_true',
                         help='Whether the weights should not be saved (default %(default)s).')
+    parser.add_argument('-om', '--omit_model', default=not SAVE_MODEL, required=False, action='store_true',
+                        help='Whether the model should not be saved (default %(default)s).')
     parser.add_argument('-oc', '--omit_checkpoint', default=not SAVE_CHECKPOINT, required=False, action='store_true',
                         help='Whether the best weights checkpoint should not be saved (default %(default)s).')
     parser.add_argument('-oh', '--omit_history', default=not SAVE_HIST, required=False, action='store_true',
@@ -49,6 +53,9 @@ def create_training_parser() -> ArgumentParser:
     parser.add_argument('-wf', '--weights_filepath', default=WEIGHTS_FILENAME, required=False, type=str,
                         help='Path to store the trained network\'s weights (default %(default)s). '
                              'Ignored if --omit_weights has been chosen')
+    parser.add_argument('-mf', '--model_filepath', default=MODEL_FILENAME, required=False, type=str,
+                        help='Path to store the trained network (default %(default)s). '
+                             'Ignored if --omit_model has been chosen')
     parser.add_argument('-hf', '--history_filepath', default=HIST_FILENAME, required=False, type=str,
                         help='Path to store the trained network\'s history (default %(default)s). '
                              'Ignored if --omit_history has been chosen')

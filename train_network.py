@@ -8,6 +8,7 @@ from tensorflow.python.keras.callbacks import ModelCheckpoint
 from tensorflow.python.keras.datasets import cifar10
 from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
 from networks.custom_network import custom_network
@@ -96,6 +97,14 @@ def save_results() -> None:
         model.save_weights(weights_filepath)
         print('Network\'s weights have been saved as {}.\n'.format(weights_filepath))
 
+    # Save model.
+    if not omit_model:
+        # Create path for the file.
+        create_path(model_filepath)
+        # Save model.
+        save_model(model, model_filepath)
+        print('Network has been saved as {}.\n'.format(model_filepath))
+
     # Save history.
     if not omit_history:
         # Create path for the file.
@@ -111,9 +120,11 @@ if __name__ == '__main__':
     args = create_training_parser().parse_args()
     start_point = args.start_point
     omit_weights = args.omit_weights
+    omit_model = args.omit_model
     omit_checkpoint = args.omit_checkpoint
     omit_history = args.omit_history
     weights_filepath = args.weights_filepath
+    model_filepath = args.model_filepath
     hist_filepath = args.history_filepath
     checkpoint_filepath = args.checkpoint_filepath
     optimizer_name = args.optimizer
