@@ -1,8 +1,9 @@
 import os
 import pickle
-from typing import Union
+from typing import Union, Tuple, Any
 
 from keras_preprocessing.image import ImageDataGenerator
+from numpy import ndarray
 from tensorflow.python.keras import Sequential
 from tensorflow.python.keras.callbacks import ModelCheckpoint
 from tensorflow.python.keras.datasets import cifar10
@@ -11,6 +12,14 @@ from tensorflow.python.keras.utils import to_categorical
 
 from networks.custom_network import custom_network
 from utils import create_training_parser, create_path
+
+
+def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
+    """
+    Loads the dataset.
+    :return: the data and the number of classes.
+    """
+    return [cifar10.load_data(), 10]
 
 
 def preprocess_images(images_array):
@@ -113,8 +122,7 @@ if __name__ == '__main__':
     verbosity = args.verbosity
 
     # Load dataset.
-    (x_train, y_train), (x_test, y_test) = cifar10.load_data()
-    n_classes = 10
+    (x_train, y_train), (x_test, y_test), n_classes = load_data()
 
     # Preprocess data.
     x_train = preprocess_images(x_train.copy())
