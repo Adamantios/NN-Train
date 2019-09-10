@@ -119,8 +119,8 @@ if __name__ == '__main__':
     # Preprocess data.
     x_train = preprocess_images(x_train.copy())
     x_test = preprocess_images(x_test.copy())
-    y_train = to_categorical(y_train, 10)
-    y_test = to_categorical(y_test, 10)
+    y_train = to_categorical(y_train, n_classes)
+    y_test = to_categorical(y_test, n_classes)
 
     # Generate batches of tensor image data with real-time data augmentation.
     datagen = ImageDataGenerator(rotation_range=10, zoom_range=0.1, width_shift_range=0.1, height_shift_range=0.1)
