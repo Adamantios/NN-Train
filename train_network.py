@@ -19,7 +19,7 @@ def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
     Loads the dataset.
     :return: the data and the number of classes.
     """
-    return [cifar10.load_data(), 10]
+    return cifar10.load_data(), 10
 
 
 def preprocess_images(images_array):
