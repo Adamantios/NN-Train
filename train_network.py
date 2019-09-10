@@ -151,6 +151,7 @@ if __name__ == '__main__':
     y_test = to_categorical(y_test, n_classes)
 
     # Generate batches of tensor image data with real-time data augmentation.
+    # TODO add parameters to the script for the augmentation.
     datagen = ImageDataGenerator(rotation_range=10, zoom_range=0.1, width_shift_range=0.1, height_shift_range=0.1)
     datagen.fit(x_train)
 
