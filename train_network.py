@@ -131,7 +131,7 @@ if __name__ == '__main__':
     verbosity = args.verbosity
 
     # Load dataset.
-    (x_train, y_train), (x_test, y_test), n_classes = load_data()
+    ((x_train, y_train), (x_test, y_test)), n_classes = load_data()
 
     # Preprocess data.
     x_train = preprocess_images(x_train.copy())
