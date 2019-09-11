@@ -39,7 +39,9 @@ def create_training_parser() -> ArgumentParser:
     """
     parser = ArgumentParser(description='Training a CNN network.',
                             epilog='Note: '
-                                   'The hyperparameters will be ignored if the chosen optimizer does not use them.')
+                                   'The hyperparameters will be ignored if the chosen optimizer does not use them.\n'
+                                   'Little hack to just save a model from existing checkpoint: \n'
+                                   '$python train_network.py -sp checkpoint.h5 -e 0')
     parser.add_argument('-sp', '--start_point', type=str, required=False, default=START_POINT,
                         help='Filepath containing existing weights to initialize the model.')
     parser.add_argument('-ow', '--omit_weights', default=not SAVE_WEIGHTS, required=False, action='store_true',
