@@ -37,7 +37,7 @@ def create_training_parser() -> ArgumentParser:
 
     :return: ArgumentParser object.
     """
-    parser = ArgumentParser(description='Training the custom CNN network, to be used for style transferring.',
+    parser = ArgumentParser(description='Training a CNN network.',
                             epilog='Note: '
                                    'The hyperparameters will be ignored if the chosen optimizer does not use them.')
     parser.add_argument('-sp', '--start_point', type=str, required=False, default=START_POINT,
