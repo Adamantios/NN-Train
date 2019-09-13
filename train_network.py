@@ -4,7 +4,7 @@ from typing import Union, Tuple, Any
 
 from numpy import ndarray
 from tensorflow.python.keras import Sequential
-from tensorflow.python.keras.callbacks import ModelCheckpoint
+from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
 from tensorflow.python.keras.datasets import cifar10
 from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
@@ -84,6 +84,11 @@ def init_callbacks() -> []:
                                      save_best_only=True, mode='max')
         callbacks.append(checkpoint)
 
+    if lr_decay > 0:
+        learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc', patience=lr_patience, verbose=1, factor=decay,
+                                                    min_lr=lr_min)
+        callbacks.append(learning_rate_reduction)
+
     return callbacks
 
 
@@ -129,6 +134,9 @@ if __name__ == '__main__':
     checkpoint_filepath = args.checkpoint_filepath
     optimizer_name = args.optimizer
     learning_rate = args.learning_rate
+    lr_patience = args.learning_rate_patience
+    lr_decay = args.learning_rate_decay
+    lr_min = args.learning_rate_min
     clip_norm = args.clip_norm
     clip_value = args.clip_value
     beta1 = args.beta1

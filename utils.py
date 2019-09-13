@@ -15,6 +15,9 @@ HIST_FILENAME = 'out/train_history.pickle'
 OPTIMIZER = 'rmsprop'
 OPTIMIZER_CHOICES = 'adam', 'rmsprop', 'sgd', 'adagrad', 'adadelta', 'adamax'
 LEARNING_RATE = 1E-3
+LR_PATIENCE = 10
+LR_DECAY = 0.1
+LR_MIN = 0.00000001
 CLIP_NORM = 1
 CLIP_VALUE = .5
 BETA1 = .9
@@ -69,6 +72,14 @@ def create_training_parser() -> ArgumentParser:
                         help='The optimizer to be used. (default %(default)s).')
     parser.add_argument('-lr', '--learning_rate', type=float, default=LEARNING_RATE, required=False,
                         help='The learning rate for the optimizer (default %(default)s).')
+    parser.add_argument('-lrp', '--learning_rate_patience', type=int, default=LR_PATIENCE, required=False,
+                        help='The number of epochs to wait before decaying the learning rate (default %(default)s).')
+    parser.add_argument('-lrd', '--learning_rate_decay', type=float, default=LR_DECAY, required=False,
+                        help='The learning rate decay factor. '
+                             'If 0 is given, then the learning rate will remain the same during the training proccess. '
+                             '(default %(default)s).')
+    parser.add_argument('-lrm', '--learning_rate_min', type=float, default=LR_MIN, required=False,
+                        help='The minimum learning rate which can be reached (default %(default)s).')
     parser.add_argument('-cn', '--clip_norm', type=float, default=CLIP_NORM, required=False,
                         help='The clip norm for the optimizer (default %(default)s).')
     parser.add_argument('-cv', '--clip_value', type=float, default=CLIP_VALUE, required=False,
