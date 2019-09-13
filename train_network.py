@@ -23,14 +23,15 @@ def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
     return cifar10.load_data(), 10
 
 
-def preprocess_images(images_array):
+def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
     """
-    Preprocess the given images.
+    Preprocess the given data.
 
-    :param images_array: array containing the images to be preprocessed.
-    :return: the preprocessed images array.
+    :param train: the train data.
+    :param test: the test data.
+    :return: the preprocessed data.
     """
-    return images_array / 255
+    return train / 255, test / 255
 
 
 def create_model() -> Sequential:
@@ -153,8 +154,7 @@ if __name__ == '__main__':
     ((x_train, y_train), (x_test, y_test)), n_classes = load_data()
 
     # Preprocess data.
-    x_train = preprocess_images(x_train.copy())
-    x_test = preprocess_images(x_test.copy())
+    x_train, x_test = preprocess_data(x_train.copy(), x_test.copy())
     y_train = to_categorical(y_train, n_classes)
     y_test = to_categorical(y_test, n_classes)
 
