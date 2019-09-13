@@ -7,10 +7,10 @@ from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Bat
 from tensorflow.python.keras.regularizers import l2
 
 
-def custom_network(n_classes: int, input_shape=None, input_tensor=None,
+def cifar10_model1(n_classes: int, input_shape=None, input_tensor=None,
                    weights_path: Union[None, str] = None) -> Sequential:
     """
-    Defines a custom network.
+    Defines a cifar10 network.
 
     :param n_classes: the number of classes.
     :param input_shape: the input tensor of the network. Can be omitted if input_tensor is used.
@@ -22,7 +22,7 @@ def custom_network(n_classes: int, input_shape=None, input_tensor=None,
         raise ValueError('You need to specify input shape or input tensor for the network.')
 
     # Create a Sequential model.
-    model = Sequential(name='custom')
+    model = Sequential(name='cifar10_model1')
 
     if input_shape is None:
         # Create an InputLayer using the input tensor.

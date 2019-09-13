@@ -11,7 +11,7 @@ from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
-from networks.custom_network import custom_network
+from networks.cifar10_model1 import custom_network
 from utils import create_training_parser, create_path, plot_results
 
 
