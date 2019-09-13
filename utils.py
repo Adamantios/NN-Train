@@ -78,7 +78,7 @@ def create_training_parser() -> ArgumentParser:
                         help='The number of epochs to wait before decaying the learning rate (default %(default)s).')
     parser.add_argument('-lrd', '--learning_rate_decay', type=float, default=LR_DECAY, required=False,
                         help='The learning rate decay factor. '
-                             'If 0 is given, then the learning rate will remain the same during the training proccess. '
+                             'If 0 is given, then the learning rate will remain the same during the training process. '
                              '(default %(default)s).')
     parser.add_argument('-lrm', '--learning_rate_min', type=float, default=LR_MIN, required=False,
                         help='The minimum learning rate which can be reached (default %(default)s).')
