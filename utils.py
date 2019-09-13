@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 
 # ----------------------------------- DEFAULT ARGUMENTS ------------------------------------------
 
+DATASET = 'cifar10'
+DATASET_CHOICES = 'cifar10', 'cifar100'
+NETWORK = 'cifar10_model1'
+NETWORK_CHOICES = 'cifar10_model1', 'cifar100_model1'
 START_POINT = ''
 SAVE_WEIGHTS = True
 SAVE_MODEL = True
@@ -47,6 +51,10 @@ def create_training_parser() -> ArgumentParser:
                                    'The hyperparameters will be ignored if the chosen optimizer does not use them.\n'
                                    'Little hack to just save a model from existing checkpoint: \n'
                                    '$python train_network.py -sp checkpoint.h5 -e 0')
+    parser.add_argument('-db', '--dataset', type=str.lower, default=DATASET, required=False, choices=DATASET_CHOICES,
+                        help='The dataset to be used (default %(default)s).')
+    parser.add_argument('-n', '--network', type=str.lower, default=NETWORK, required=False, choices=NETWORK_CHOICES,
+                        help='The network model to be used (default %(default)s).')
     parser.add_argument('-sp', '--start_point', type=str, required=False, default=START_POINT,
                         help='Filepath containing existing weights to initialize the model.')
     parser.add_argument('-ow', '--omit_weights', default=not SAVE_WEIGHTS, required=False, action='store_true',

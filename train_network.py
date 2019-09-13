@@ -5,7 +5,7 @@ from typing import Union, Tuple, Any
 from numpy import ndarray
 from tensorflow.python.keras import Sequential
 from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
-from tensorflow.python.keras.datasets import cifar10
+from tensorflow.python.keras.datasets import cifar10, cifar100
 from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.saving import save_model
@@ -20,7 +20,14 @@ def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
     Loads the dataset.
     :return: the data and the number of classes.
     """
-    return cifar10.load_data(), 10
+    if dataset == 'cifar10':
+        data, classes = cifar10.load_data(), 10
+    elif dataset == 'cifar100':
+        data, classes = cifar100.load_data(), 100
+    else:
+        raise ValueError("Unrecognised dataset!")
+
+    return data, classes
 
 
 def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
@@ -31,7 +38,12 @@ def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
     :param test: the test data.
     :return: the preprocessed data.
     """
-    return train / 255, test / 255
+    if dataset == 'cifar10' or dataset == 'cifar100':
+        train, test = train / 255, test / 255
+    else:
+        raise ValueError("Unrecognised dataset!")
+
+    return train, test
 
 
 def create_model() -> Sequential:
@@ -39,13 +51,18 @@ def create_model() -> Sequential:
     Creates the model and loads weights as a start point if they exist.
     :return: Keras Sequential model.
     """
+    if model_name == 'cifar10_model1':
+        model_generator = cifar10_model1
+    else:
+        raise ValueError('Unrecognised model!')
+
     if start_point != '':
         if os.path.isfile(start_point):
-            return cifar10_model1(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
+            return model_generator(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
         else:
             raise FileNotFoundError('Checkpoint file \'{}\' not found.'.format(start_point))
     else:
-        return cifar10_model1(input_shape=x_train.shape[1:], n_classes=n_classes)
+        return model_generator(input_shape=x_train.shape[1:], n_classes=n_classes)
 
 
 def initialize_optimizer() -> Union[adam, rmsprop, sgd, adagrad, adadelta, adamax]:
@@ -124,6 +141,8 @@ def save_results() -> None:
 if __name__ == '__main__':
     # Get arguments.
     args = create_training_parser().parse_args()
+    dataset = args.dataset
+    model_name = args.network
     start_point = args.start_point
     omit_weights = args.omit_weights
     omit_model = args.omit_model
