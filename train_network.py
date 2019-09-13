@@ -11,7 +11,7 @@ from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
-from networks.cifar10_model1 import custom_network
+from networks.cifar10_model1 import cifar10_model1
 from utils import create_training_parser, create_path, plot_results
 
 
@@ -40,11 +40,11 @@ def create_model() -> Sequential:
     """
     if start_point != '':
         if os.path.isfile(start_point):
-            return custom_network(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
+            return cifar10_model1(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
         else:
             raise FileNotFoundError('Checkpoint file \'{}\' not found.'.format(start_point))
     else:
-        return custom_network(input_shape=x_train.shape[1:], n_classes=n_classes)
+        return cifar10_model1(input_shape=x_train.shape[1:], n_classes=n_classes)
 
 
 def initialize_optimizer() -> Union[adam, rmsprop, sgd, adagrad, adadelta, adamax]:
