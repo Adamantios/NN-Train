@@ -12,7 +12,7 @@ from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
 from networks.custom_network import custom_network
-from utils import create_training_parser, create_path
+from utils import create_training_parser, create_path, plot_results
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -179,6 +179,9 @@ if __name__ == '__main__':
     history = model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
                                   steps_per_epoch=x_train.shape[0] // batch_size, validation_data=(x_test, y_test),
                                   callbacks=callbacks_list)
+
+    # Plot results.
+    plot_results(history.history)
 
     # Save results.
     save_results()

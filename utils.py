@@ -1,13 +1,15 @@
 from argparse import ArgumentParser
 from os import path, makedirs
 
+import matplotlib.pyplot as plt
+
 # ----------------------------------- DEFAULT ARGUMENTS ------------------------------------------
 
 START_POINT = ''
 SAVE_WEIGHTS = True
 SAVE_MODEL = True
 SAVE_CHECKPOINT = True
-SAVE_HIST = True
+SAVE_HISTORY = True
 WEIGHTS_FILENAME = 'out/network_weights.h5'
 MODEL_FILENAME = 'out/network.h5'
 CHECKPOINT_FILENAME = 'out/checkpoint.h5'
@@ -53,7 +55,7 @@ def create_training_parser() -> ArgumentParser:
                         help='Whether the model should not be saved (default %(default)s).')
     parser.add_argument('-oc', '--omit_checkpoint', default=not SAVE_CHECKPOINT, required=False, action='store_true',
                         help='Whether the best weights checkpoint should not be saved (default %(default)s).')
-    parser.add_argument('-oh', '--omit_history', default=not SAVE_HIST, required=False, action='store_true',
+    parser.add_argument('-oh', '--omit_history', default=not SAVE_HISTORY, required=False, action='store_true',
                         help='Whether the training history should not be saved (default %(default)s).')
     parser.add_argument('-wf', '--weights_filepath', default=WEIGHTS_FILENAME, required=False, type=str,
                         help='Path to store the trained network\'s weights (default %(default)s). '
@@ -118,3 +120,38 @@ def create_path(filepath: str) -> None:
     # Create directory if it does not exist
     if not path.exists(directory):
         makedirs(directory)
+
+
+def plot_results(history: dict) -> None:
+    # Accuracy.
+    fig = plt.figure(figsize=(12, 10))
+    plt.plot(history['acc'])
+    plt.plot(history['val_acc'])
+    plt.title('Train/Test accuracy', fontsize='x-large')
+    plt.xlabel('epoch', fontsize='large')
+    plt.ylabel('accuracy', fontsize='large')
+    plt.legend(['train', 'test'], loc='upper left', fontsize='large')
+    plt.show()
+
+    # Loss.
+    fig = plt.figure(figsize=(12, 10))
+    plt.plot(history['loss'])
+    plt.plot(history['val_loss'])
+    plt.title('Train/Test loss', fontsize='x-large')
+    plt.xlabel('epoch', fontsize='large')
+    plt.ylabel('loss', fontsize='large')
+    plt.legend(['train', 'test'], loc='upper left', fontsize='large')
+    plt.show()
+
+    # Accuracy + Loss.
+    fig = plt.figure(figsize=(12, 10))
+    plt.plot(history['acc'])
+    plt.plot(history['val_acc'])
+    plt.plot(history['loss'], linestyle='dashed')
+    plt.plot(history['val_loss'], linestyle='dashed')
+    plt.title('Train/Test accuracy and loss', fontsize='x-large')
+    plt.xlabel('epoch', fontsize='large')
+    plt.ylabel('loss', fontsize='large')
+    plt.legend(['train acc', 'test acc', 'train loss', 'test loss'],
+               loc='upper left', fontsize='large')
+    plt.show()
