@@ -123,6 +123,11 @@ def create_path(filepath: str) -> None:
 
 
 def plot_results(history: dict) -> None:
+    """
+    Plots a given history's accuracy and loss results.
+
+    :param history: the history to plot.
+    """
     # Accuracy.
     fig = plt.figure(figsize=(12, 10))
     plt.plot(history['acc'])
