@@ -1,5 +1,6 @@
 from argparse import ArgumentParser
 from os import path, makedirs
+from os.path import join
 
 import matplotlib.pyplot as plt
 
@@ -14,10 +15,8 @@ SAVE_WEIGHTS = True
 SAVE_MODEL = True
 SAVE_CHECKPOINT = True
 SAVE_HISTORY = True
-WEIGHTS_FILENAME = 'out/network_weights.h5'
-MODEL_FILENAME = 'out/network.h5'
-CHECKPOINT_FILENAME = 'out/checkpoint.h5'
-HIST_FILENAME = 'out/train_history.pickle'
+SAVE_PLOTS = True
+OUT_FOLDER_NAME = 'out'
 OPTIMIZER = 'rmsprop'
 OPTIMIZER_CHOICES = 'adam', 'rmsprop', 'sgd', 'adagrad', 'adadelta', 'adamax'
 LEARNING_RATE = 1E-3
@@ -35,6 +34,14 @@ TRAIN_BATCH_SIZE = 64
 EVAL_BATCH_SIZE = 128
 EPOCHS = 125
 VERBOSITY = 1
+
+WEIGHTS_FILENAME = 'network_weights.h5'
+MODEL_FILENAME = 'network.h5'
+CHECKPOINT_FILENAME = 'checkpoint.h5'
+HIST_FILENAME = 'train_history.pickle'
+ACC_PLOT_FILENAME = 'acc_plot.png'
+LOSS_PLOT_FILENAME = 'loss_plot.png'
+ACC_LOSS_PLOT_FILENAME = 'acc_loss_plot.png'
 
 
 # ------------------------------------------------------------------------------------------------
@@ -65,18 +72,10 @@ def create_training_parser() -> ArgumentParser:
                         help='Whether the best weights checkpoint should not be saved (default %(default)s).')
     parser.add_argument('-oh', '--omit_history', default=not SAVE_HISTORY, required=False, action='store_true',
                         help='Whether the training history should not be saved (default %(default)s).')
-    parser.add_argument('-wf', '--weights_filepath', default=WEIGHTS_FILENAME, required=False, type=str,
-                        help='Path to store the trained network\'s weights (default %(default)s). '
-                             'Ignored if --omit_weights has been chosen')
-    parser.add_argument('-mf', '--model_filepath', default=MODEL_FILENAME, required=False, type=str,
-                        help='Path to store the trained network (default %(default)s). '
-                             'Ignored if --omit_model has been chosen')
-    parser.add_argument('-hf', '--history_filepath', default=HIST_FILENAME, required=False, type=str,
-                        help='Path to store the trained network\'s history (default %(default)s). '
-                             'Ignored if --omit_history has been chosen')
-    parser.add_argument('-cf', '--checkpoint_filepath', default=CHECKPOINT_FILENAME, required=False, type=str,
-                        help='Path to store the trained network\'s best checkpoint(default %(default)s). '
-                             'Ignored if --omit_checkpoint has been chosen')
+    parser.add_argument('-op', '--omit_plots', default=not SAVE_PLOTS, required=False, action='store_true',
+                        help='Whether the training plots should not be saved (default %(default)s).')
+    parser.add_argument('-out', '--out_folder', default=OUT_FOLDER_NAME, required=False, type=str,
+                        help='Path to the folder where the outputs will be stored (default %(default)s).')
     parser.add_argument('-o', '--optimizer', type=str.lower, default=OPTIMIZER, required=False,
                         choices=OPTIMIZER_CHOICES,
                         help='The optimizer to be used. (default %(default)s).')
@@ -130,12 +129,17 @@ def create_path(filepath: str) -> None:
         makedirs(directory)
 
 
-def plot_results(history: dict) -> None:
+def plot_results(history: dict, save_folder: str = None) -> None:
     """
     Plots a given history's accuracy and loss results.
 
     :param history: the history to plot.
+    :param save_folder: the folder to save the plots. If None, then the plots will not be saved.
     """
+    acc_plot_filepath = join(save_folder, ACC_PLOT_FILENAME)
+    loss_plot_filepath = join(save_folder, LOSS_PLOT_FILENAME)
+    acc_loss_plot_filepath = join(save_folder, ACC_LOSS_PLOT_FILENAME)
+
     # Accuracy.
     fig = plt.figure(figsize=(12, 10))
     plt.plot(history['acc'])
@@ -145,6 +149,8 @@ def plot_results(history: dict) -> None:
     plt.ylabel('accuracy', fontsize='large')
     plt.legend(['train', 'test'], loc='upper left', fontsize='large')
     plt.show()
+    if save_folder is not None:
+        fig.savefig(acc_plot_filepath)
 
     # Loss.
     fig = plt.figure(figsize=(12, 10))
@@ -155,6 +161,8 @@ def plot_results(history: dict) -> None:
     plt.ylabel('loss', fontsize='large')
     plt.legend(['train', 'test'], loc='upper left', fontsize='large')
     plt.show()
+    if save_folder is not None:
+        fig.savefig(loss_plot_filepath)
 
     # Accuracy + Loss.
     fig = plt.figure(figsize=(12, 10))
@@ -168,3 +176,5 @@ def plot_results(history: dict) -> None:
     plt.legend(['train acc', 'test acc', 'train loss', 'test loss'],
                loc='upper left', fontsize='large')
     plt.show()
+    if save_folder is not None:
+        fig.savefig(acc_loss_plot_filepath)

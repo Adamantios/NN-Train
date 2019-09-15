@@ -1,5 +1,6 @@
 import os
 import pickle
+from os.path import join
 from typing import Union, Tuple, Any
 
 from numpy import ndarray
@@ -12,7 +13,8 @@ from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
 from networks.cifar10_model1 import cifar10_model1
-from utils import create_training_parser, create_path, plot_results
+from utils import create_training_parser, create_path, plot_results, WEIGHTS_FILENAME, MODEL_FILENAME, HIST_FILENAME, \
+    CHECKPOINT_FILENAME
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -93,7 +95,7 @@ def init_callbacks() -> []:
     :return: the callbacks list.
     """
     callbacks = []
-    if not omit_checkpoint:
+    if save_checkpoint:
         # Create path for the file.
         create_path(checkpoint_filepath)
 
@@ -111,9 +113,9 @@ def init_callbacks() -> []:
 
 
 def save_results() -> None:
-    """ Saves the training results (final weights and history). """
+    """ Saves the training results (final weights, network and history). """
     # Save weights.
-    if not omit_weights:
+    if save_weights:
         # Create path for the file.
         create_path(weights_filepath)
         # Save weights.
@@ -121,7 +123,7 @@ def save_results() -> None:
         print('Network\'s weights have been saved as {}.\n'.format(weights_filepath))
 
     # Save model.
-    if not omit_model:
+    if save_network:
         # Create path for the file.
         create_path(model_filepath)
         # Save model.
@@ -129,7 +131,7 @@ def save_results() -> None:
         print('Network has been saved as {}.\n'.format(model_filepath))
 
     # Save history.
-    if not omit_history:
+    if save_history:
         # Create path for the file.
         create_path(weights_filepath)
         # Save history.
@@ -144,14 +146,12 @@ if __name__ == '__main__':
     dataset = args.dataset
     model_name = args.network
     start_point = args.start_point
-    omit_weights = args.omit_weights
-    omit_model = args.omit_model
-    omit_checkpoint = args.omit_checkpoint
-    omit_history = args.omit_history
-    weights_filepath = args.weights_filepath
-    model_filepath = args.model_filepath
-    hist_filepath = args.history_filepath
-    checkpoint_filepath = args.checkpoint_filepath
+    save_weights = not args.omit_weights
+    save_network = not args.omit_model
+    save_checkpoint = not args.omit_checkpoint
+    save_history = not args.omit_history
+    save_plots = not args.omit_plots
+    out_folder = args.out_folder
     optimizer_name = args.optimizer
     learning_rate = args.learning_rate
     lr_patience = args.learning_rate_patience
@@ -168,6 +168,11 @@ if __name__ == '__main__':
     evaluation_batch_size = args.evaluation_batch_size
     epochs = args.epochs
     verbosity = args.verbosity
+
+    weights_filepath = join(out_folder, WEIGHTS_FILENAME)
+    model_filepath = join(out_folder, MODEL_FILENAME)
+    hist_filepath = join(out_folder, HIST_FILENAME)
+    checkpoint_filepath = join(out_folder, CHECKPOINT_FILENAME)
 
     # Load dataset.
     ((x_train, y_train), (x_test, y_test)), n_classes = load_data()
@@ -200,7 +205,8 @@ if __name__ == '__main__':
                                   callbacks=callbacks_list)
 
     # Plot results.
-    plot_results(history.history)
+    save_folder = out_folder if save_plots else None
+    plot_results(history.history, save_folder)
 
     # Save results.
     save_results()
