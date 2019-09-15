@@ -137,7 +137,7 @@ def save_results() -> None:
     # Save history.
     if save_history:
         # Create path for the file.
-        create_path(weights_filepath)
+        create_path(hist_filepath)
         # Save history.
         with open(hist_filepath, 'wb') as file:
             pickle.dump(history.history, file)
