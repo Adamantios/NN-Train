@@ -144,6 +144,14 @@ def save_results() -> None:
         print('Network\'s history has been saved as {}.\n'.format(hist_filepath))
 
 
+def evaluate_results():
+    print('Evaluating results...')
+    scores = model.evaluate(x_test, y_test)
+
+    for i in range(len(scores)):
+        print("{}: {}\n".format(model.metrics_names[i], scores[1]))
+
+
 if __name__ == '__main__':
     # Get arguments.
     args = create_training_parser().parse_args()
@@ -182,7 +190,6 @@ if __name__ == '__main__':
 
     # Load dataset.
     ((x_train, y_train), (x_test, y_test)), n_classes = load_data()
-
     # Preprocess data.
     x_train, x_test = preprocess_data(x_train.copy(), x_test.copy())
     y_train = to_categorical(y_train, n_classes)
@@ -190,13 +197,10 @@ if __name__ == '__main__':
 
     # Create model.
     model = create_model()
-
     # Initialize optimizer.
     optimizer = initialize_optimizer()
-
     # Compile model.
     model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
-
     # Initialize callbacks list.
     callbacks_list = init_callbacks()
 
@@ -214,6 +218,7 @@ if __name__ == '__main__':
     # Plot results.
     save_folder = out_folder if save_plots else None
     plot_results(history.history, save_folder)
-
     # Save results.
     save_results()
+    # Evaluate results.
+    evaluate_results()
