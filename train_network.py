@@ -13,8 +13,8 @@ from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
 from networks.cifar10_model1 import cifar10_model1
-from utils import create_training_parser, create_path, plot_results, WEIGHTS_FILENAME, MODEL_FILENAME, HIST_FILENAME, \
-    CHECKPOINT_FILENAME
+from parser import create_training_parser
+from utils import create_path, plot_results
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -175,10 +175,10 @@ if __name__ == '__main__':
     epochs = args.epochs
     verbosity = args.verbosity
 
-    weights_filepath = join(out_folder, WEIGHTS_FILENAME)
-    model_filepath = join(out_folder, MODEL_FILENAME)
-    hist_filepath = join(out_folder, HIST_FILENAME)
-    checkpoint_filepath = join(out_folder, CHECKPOINT_FILENAME)
+    weights_filepath = join(out_folder, 'network_weights.h5')
+    model_filepath = join(out_folder, 'network.h5')
+    hist_filepath = join(out_folder, 'train_history.pickle')
+    checkpoint_filepath = join(out_folder, 'checkpoint.h5')
 
     # Load dataset.
     ((x_train, y_train), (x_test, y_test)), n_classes = load_data()
