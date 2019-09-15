@@ -13,7 +13,7 @@ def cifar10_model1(n_classes: int, input_shape=None, input_tensor=None,
     Defines a cifar10 network.
 
     :param n_classes: the number of classes.
-    :param input_shape: the input tensor of the network. Can be omitted if input_tensor is used.
+    :param input_shape: the input shape of the network. Can be omitted if input_tensor is used.
     :param input_tensor: the input tensor of the network. Can be omitted if input_shape is used.
     :param weights_path: a path to a trained custom network's weights.
     :return: Keras Sequential Model.
