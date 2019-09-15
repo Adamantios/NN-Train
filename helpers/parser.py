@@ -12,6 +12,7 @@ SAVE_MODEL = True
 SAVE_CHECKPOINT = True
 SAVE_HISTORY = True
 SAVE_PLOTS = True
+SAVE_EVALUATION_RESULTS = True
 OUT_FOLDER_NAME = 'out'
 OPTIMIZER = 'rmsprop'
 OPTIMIZER_CHOICES = 'adam', 'rmsprop', 'sgd', 'adagrad', 'adadelta', 'adamax'
@@ -64,6 +65,9 @@ def create_training_parser() -> ArgumentParser:
                         help='Whether the training history should not be saved (default %(default)s).')
     parser.add_argument('-op', '--omit_plots', default=not SAVE_PLOTS, required=False, action='store_true',
                         help='Whether the training plots should not be saved (default %(default)s).')
+    parser.add_argument('-oe', '--omit_evaluation', default=not SAVE_EVALUATION_RESULTS, required=False,
+                        action='store_true',
+                        help='Whether the evaluation results should not be saved (default %(default)s).')
     parser.add_argument('-out', '--out_folder', default=OUT_FOLDER_NAME, required=False, type=str,
                         help='Path to the folder where the outputs will be stored (default %(default)s).')
     parser.add_argument('-o', '--optimizer', type=str.lower, default=OPTIMIZER, required=False,

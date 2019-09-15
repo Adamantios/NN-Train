@@ -1,3 +1,4 @@
+import logging
 import os
 import pickle
 from os.path import join
@@ -12,9 +13,9 @@ from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
+from helpers.parser import create_training_parser
+from helpers.utils import create_path, plot_results
 from networks.cifar10_model1 import cifar10_model1
-from parser import create_training_parser
-from utils import create_path, plot_results
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -116,6 +117,24 @@ def init_callbacks() -> []:
     return callbacks
 
 
+def evaluate_results() -> None:
+    """ Evaluates the network's final results. """
+    print('Evaluating results...')
+    scores = model.evaluate(x_test, y_test)
+
+    results = ''
+    for i in range(len(scores)):
+        results += "{}: {}\n".format(model.metrics_names[i], scores[1])
+
+    print(results)
+
+    # Save model evaluation results.
+    if save_evaluation:
+        logging.basicConfig(filename=results_filepath, filemode='w', format='%(message)s', level=logging.INFO)
+        logging.info(results)
+        print('Evaluation results have been saved as {}.\n'.format(results_filepath))
+
+
 def save_results() -> None:
     """ Saves the training results (final weights, network and history). """
     # Save weights.
@@ -144,14 +163,6 @@ def save_results() -> None:
         print('Network\'s history has been saved as {}.\n'.format(hist_filepath))
 
 
-def evaluate_results():
-    print('Evaluating results...')
-    scores = model.evaluate(x_test, y_test)
-
-    for i in range(len(scores)):
-        print("{}: {}\n".format(model.metrics_names[i], scores[1]))
-
-
 if __name__ == '__main__':
     # Get arguments.
     args = create_training_parser().parse_args()
@@ -163,6 +174,7 @@ if __name__ == '__main__':
     save_checkpoint = not args.omit_checkpoint
     save_history = not args.omit_history
     save_plots = not args.omit_plots
+    save_evaluation = not args.omit_evaluation
     out_folder = args.out_folder
     optimizer_name = args.optimizer
     augment_data = not args.no_augmentation
@@ -187,6 +199,7 @@ if __name__ == '__main__':
     model_filepath = join(out_folder, 'network.h5')
     hist_filepath = join(out_folder, 'train_history.pickle')
     checkpoint_filepath = join(out_folder, 'checkpoint.h5')
+    results_filepath = join(out_folder, 'results.log')
 
     # Load dataset.
     ((x_train, y_train), (x_test, y_test)), n_classes = load_data()
@@ -218,7 +231,7 @@ if __name__ == '__main__':
     # Plot results.
     save_folder = out_folder if save_plots else None
     plot_results(history.history, save_folder)
-    # Save results.
-    save_results()
     # Evaluate results.
     evaluate_results()
+    # Save results.
+    save_results()
