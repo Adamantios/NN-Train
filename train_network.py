@@ -5,7 +5,7 @@ from typing import Union, Tuple, Any
 
 from numpy import ndarray
 from tensorflow.python.keras import Sequential
-from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau
+from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 from tensorflow.python.keras.datasets import cifar10, cifar100
 from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
@@ -109,6 +109,10 @@ def init_callbacks() -> []:
                                                     min_lr=lr_min)
         callbacks.append(learning_rate_reduction)
 
+    if early_stopping_patience > 0:
+        early_stopping = EarlyStopping(monitor='val_acc', patience=early_stopping_patience, min_delta=.002, verbose=1)
+        callbacks.append(early_stopping)
+
     return callbacks
 
 
@@ -157,6 +161,7 @@ if __name__ == '__main__':
     lr_patience = args.learning_rate_patience
     lr_decay = args.learning_rate_decay
     lr_min = args.learning_rate_min
+    early_stopping_patience = args.early_stopping_patience
     clip_norm = args.clip_norm
     clip_value = args.clip_value
     beta1 = args.beta1

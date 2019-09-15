@@ -20,9 +20,10 @@ OUT_FOLDER_NAME = 'out'
 OPTIMIZER = 'rmsprop'
 OPTIMIZER_CHOICES = 'adam', 'rmsprop', 'sgd', 'adagrad', 'adadelta', 'adamax'
 LEARNING_RATE = 1E-3
-LR_PATIENCE = 10
+LR_PATIENCE = 8
 LR_DECAY = 0.1
 LR_MIN = 0.00000001
+EARLY_STOPPING_PATIENCE = 15
 CLIP_NORM = 1
 CLIP_VALUE = .5
 BETA1 = .9
@@ -89,6 +90,9 @@ def create_training_parser() -> ArgumentParser:
                              '(default %(default)s).')
     parser.add_argument('-lrm', '--learning_rate_min', type=float, default=LR_MIN, required=False,
                         help='The minimum learning rate which can be reached (default %(default)s).')
+    parser.add_argument('-esp', '--early_stopping_patience', type=int, default=EARLY_STOPPING_PATIENCE, required=False,
+                        help='The number of epochs to wait before early stopping'
+                             'If 0 is given, early stopping will not be applied. (default %(default)s).')
     parser.add_argument('-cn', '--clip_norm', type=float, default=CLIP_NORM, required=False,
                         help='The clip norm for the optimizer (default %(default)s).')
     parser.add_argument('-cv', '--clip_value', type=float, default=CLIP_VALUE, required=False,
