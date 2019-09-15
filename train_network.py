@@ -157,6 +157,7 @@ if __name__ == '__main__':
     save_plots = not args.omit_plots
     out_folder = args.out_folder
     optimizer_name = args.optimizer
+    augment_data = not args.no_augmentation
     learning_rate = args.learning_rate
     lr_patience = args.learning_rate_patience
     lr_decay = args.learning_rate_decay
@@ -187,11 +188,6 @@ if __name__ == '__main__':
     y_train = to_categorical(y_train, n_classes)
     y_test = to_categorical(y_test, n_classes)
 
-    # Generate batches of tensor image data with real-time data augmentation.
-    # TODO add parameters to the script for the augmentation.
-    datagen = ImageDataGenerator(rotation_range=10, zoom_range=0.1, width_shift_range=0.1, height_shift_range=0.1)
-    datagen.fit(x_train)
-
     # Create model.
     model = create_model()
 
@@ -204,10 +200,16 @@ if __name__ == '__main__':
     # Initialize callbacks list.
     callbacks_list = init_callbacks()
 
-    # Fit network.
-    history = model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
-                                  steps_per_epoch=x_train.shape[0] // batch_size, validation_data=(x_test, y_test),
-                                  callbacks=callbacks_list)
+    if augment_data:
+        # Generate batches of tensor image data with real-time data augmentation.
+        datagen = ImageDataGenerator(rotation_range=10, zoom_range=0.1, width_shift_range=0.1, height_shift_range=0.1)
+        datagen.fit(x_train)
+        # Fit network.
+        history = model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
+                                      steps_per_epoch=x_train.shape[0] // batch_size, validation_data=(x_test, y_test),
+                                      callbacks=callbacks_list)
+    else:
+        history = model.fit(x_train, y_train, epochs=epochs, validation_data=(x_test, y_test), callbacks=callbacks_list)
 
     # Plot results.
     save_folder = out_folder if save_plots else None
