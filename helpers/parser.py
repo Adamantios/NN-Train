@@ -22,8 +22,6 @@ LR_PATIENCE = 8
 LR_DECAY = 0.1
 LR_MIN = 0.00000001
 EARLY_STOPPING_PATIENCE = 15
-CLIP_NORM = 1
-CLIP_VALUE = .5
 BETA1 = .9
 BETA2 = .999
 RHO = .9
@@ -89,9 +87,9 @@ def create_training_parser() -> ArgumentParser:
     parser.add_argument('-esp', '--early_stopping_patience', type=int, default=EARLY_STOPPING_PATIENCE, required=False,
                         help='The number of epochs to wait before early stopping'
                              'If 0 is given, early stopping will not be applied. (default %(default)s).')
-    parser.add_argument('-cn', '--clip_norm', type=float, default=CLIP_NORM, required=False,
+    parser.add_argument('-cn', '--clip_norm', type=float, required=False,
                         help='The clip norm for the optimizer (default %(default)s).')
-    parser.add_argument('-cv', '--clip_value', type=float, default=CLIP_VALUE, required=False,
+    parser.add_argument('-cv', '--clip_value', type=float, required=False,
                         help='The clip value for the optimizer (default %(default)s).')
     parser.add_argument('-b1', '--beta1', type=float, default=BETA1, required=False,
                         help='The beta 1 for the optimizer (default %(default)s).')

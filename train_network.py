@@ -75,19 +75,25 @@ def initialize_optimizer() -> Union[adam, rmsprop, sgd, adagrad, adadelta, adama
     :return: the optimizer.
     """
     if optimizer_name == 'adam':
-        return adam(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
+        opt = adam(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
     elif optimizer_name == 'rmsprop':
-        return rmsprop(lr=learning_rate, rho=rho, decay=decay)
+        opt = rmsprop(lr=learning_rate, rho=rho, decay=decay)
     elif optimizer_name == 'sgd':
-        return sgd(lr=learning_rate, momentum=momentum, decay=decay)
+        opt = sgd(lr=learning_rate, momentum=momentum, decay=decay)
     elif optimizer_name == 'adagrad':
-        return adagrad(lr=learning_rate, decay=decay)
+        opt = adagrad(lr=learning_rate, decay=decay)
     elif optimizer_name == 'adadelta':
-        return adadelta(lr=learning_rate, rho=rho, decay=decay)
+        opt = adadelta(lr=learning_rate, rho=rho, decay=decay)
     elif optimizer_name == 'adamax':
-        return adamax(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
+        opt = adamax(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
     else:
         raise ValueError('An unexpected optimizer name has been encountered.')
+
+    if clip_norm is not None:
+        opt.clip_norm = clip_norm
+    if clip_value is not None:
+        opt.clip_value = clip_value
+    return opt
 
 
 def init_callbacks() -> []:
@@ -194,6 +200,9 @@ if __name__ == '__main__':
     evaluation_batch_size = args.evaluation_batch_size
     epochs = args.epochs
     verbosity = args.verbosity
+
+    if clip_norm is not None and clip_value is not None:
+        raise ValueError('You cannot set both clip norm and clip value.')
 
     weights_filepath = join(out_folder, 'network_weights.h5')
     model_filepath = join(out_folder, 'network.h5')
