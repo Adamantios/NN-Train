@@ -112,12 +112,13 @@ def init_callbacks() -> []:
         callbacks.append(checkpoint)
 
     if lr_decay > 0:
-        learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc', patience=lr_patience, verbose=1, factor=decay,
-                                                    min_lr=lr_min)
+        learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc', patience=lr_patience, verbose=verbosity,
+                                                    factor=lr_decay, min_lr=lr_min)
         callbacks.append(learning_rate_reduction)
 
     if early_stopping_patience > 0:
-        early_stopping = EarlyStopping(monitor='val_acc', patience=early_stopping_patience, min_delta=.002, verbose=1)
+        early_stopping = EarlyStopping(monitor='val_acc', patience=early_stopping_patience, min_delta=.002,
+                                       verbose=verbosity)
         callbacks.append(early_stopping)
 
     return callbacks
