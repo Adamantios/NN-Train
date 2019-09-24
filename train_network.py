@@ -131,7 +131,7 @@ def evaluate_results() -> None:
 
     results = ''
     for i in range(len(scores)):
-        results += "{}: {}\n".format(model.metrics_names[i], scores[1])
+        results += "{}: {}\n".format(model.metrics_names[i], scores[i])
 
     print(results)
 
