@@ -61,7 +61,7 @@ def plot_results(history: dict, save_folder: str = None) -> None:
     plt.plot(history['val_loss'], linestyle='dashed')
     plt.title('Train/Test accuracy and loss', fontsize='x-large')
     plt.xlabel('epoch', fontsize='large')
-    plt.ylabel('loss', fontsize='large')
+    plt.ylabel('metric', fontsize='large')
     plt.legend(['train acc', 'test acc', 'train loss', 'test loss'],
                loc='upper left', fontsize='large')
     plt.show()
