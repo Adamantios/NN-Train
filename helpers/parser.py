@@ -5,7 +5,7 @@ from argparse import ArgumentParser
 DATASET = 'cifar10'
 DATASET_CHOICES = 'cifar10', 'cifar100'
 NETWORK = 'cifar10_model1'
-NETWORK_CHOICES = 'cifar10_model1', 'cifar100_model1'
+NETWORK_CHOICES = 'cifar10_model1', 'cifar10_model2', 'cifar10_model3', 'cifar100_model1'
 START_POINT = ''
 SAVE_WEIGHTS = True
 SAVE_MODEL = True

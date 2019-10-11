@@ -15,7 +15,9 @@ from tensorflow.python.keras.utils import to_categorical
 
 from helpers.parser import create_training_parser
 from helpers.utils import create_path, plot_results
-from networks.cifar10_model1 import cifar10_model1
+from networks.cifar10 import cifar10_model2, cifar10_model3
+from networks.cifar10.cifar10_model1 import cifar10_model1
+from networks.cifar100 import cifar100_model1, cifar100_model2, cifar100_model3
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -56,6 +58,16 @@ def create_model() -> Sequential:
     """
     if model_name == 'cifar10_model1':
         model_generator = cifar10_model1
+    elif model_name == 'cifar10_model2':
+        model_generator = cifar10_model2
+    elif model_name == 'cifar10_model3':
+        model_generator = cifar10_model3
+    elif model_name == 'cifar100_model1':
+        model_generator = cifar100_model1
+    elif model_name == 'cifar100_model2':
+        model_generator = cifar100_model2
+    elif model_name == 'cifar100_model3':
+        model_generator = cifar100_model3
     else:
         raise ValueError('Unrecognised model!')
 
