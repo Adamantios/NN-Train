@@ -13,6 +13,8 @@ def cifar100_model1(n_classes: int, input_shape=None, input_tensor=None,
     Defines a cifar100 network.
 
     :param n_classes: the number of classes.
+    We use this parameter even though we know its value,
+    in order to be able to use the model in order to predict some of the classes.
     :param input_shape: the input shape of the network. Can be omitted if input_tensor is used.
     :param input_tensor: the input tensor of the network. Can be omitted if input_shape is used.
     :param weights_path: a path to a trained custom network's weights.
