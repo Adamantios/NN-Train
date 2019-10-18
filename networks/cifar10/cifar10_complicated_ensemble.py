@@ -133,7 +133,7 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     output_list.append(outputs5)
 
     # Concatenate all class predictions together.
-    outputs = Concatenate(1)(output_list)
+    outputs = Concatenate(name='output')(output_list)
 
     # Create model.
     model = Model(inputs, outputs, name='cifar10_complicated_ensemble')
