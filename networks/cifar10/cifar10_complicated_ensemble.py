@@ -3,7 +3,7 @@ from typing import Union
 
 from tensorflow import stack, expand_dims
 from tensorflow.python.keras import Input, Model
-from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten, average, concatenate
+from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten, Average, Concatenate
 
 
 def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=None,
@@ -68,7 +68,7 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     outputs2 = Dense(3, activation='softmax', name='submodel2_softmax')(x2)
 
     # Average the predictions for the second class of the first two submodels.
-    averaged_class_2 = average([outputs1[:, 1], outputs2[:, 0]], name='average_second_class')
+    averaged_class_2 = Average(name='average_second_class')([outputs1[:, 1], outputs2[:, 0]])
     output_list.append(stack([averaged_class_2, outputs2[:, 1]], axis=1, name='second_submodel'))
 
     # Submodel 3.
@@ -87,7 +87,7 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     outputs3 = Dense(3, activation='softmax', name='submodel3_softmax')(x3)
 
     # Average the predictions for the fourth class of the last two submodels.
-    averaged_class_3 = average([outputs2[:, 2], outputs3[:, 0]], name='average_fourth_class')
+    averaged_class_3 = Average(name='average_fourth_class')([outputs2[:, 2], outputs3[:, 0]])
     output_list.append(stack([averaged_class_3, outputs3[:, 1], outputs3[:, 2]], axis=1, name='third_submodel'))
 
     # Submodel 4.
@@ -132,8 +132,11 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     outputs5 = Dense(2, activation='softmax', name='submodel5_softmax')(x5)
     output_list.append(outputs5)
 
+    # Concatenate all class predictions together.
+    outputs = Concatenate(1)(output_list)
+
     # Create model.
-    model = Model(inputs, concatenate(output_list, axis=1), name='cifar10_complicated_ensemble')
+    model = Model(inputs, outputs, name='cifar10_complicated_ensemble')
 
     if weights_path is not None:
         # Check if weights file exists.
