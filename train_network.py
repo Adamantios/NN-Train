@@ -119,18 +119,18 @@ def init_callbacks() -> []:
         create_path(checkpoint_filepath)
 
         # Create checkpoint.
-        checkpoint = ModelCheckpoint(checkpoint_filepath, monitor='val_acc', verbose=verbosity,
+        checkpoint = ModelCheckpoint(checkpoint_filepath, monitor='val_categorical_accuracy', verbose=verbosity,
                                      save_best_only=True, mode='max')
         callbacks.append(checkpoint)
 
     if lr_decay > 0:
-        learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc', patience=lr_patience, verbose=verbosity,
-                                                    factor=lr_decay, min_lr=lr_min)
+        learning_rate_reduction = ReduceLROnPlateau(monitor='val_categorical_accuracy', patience=lr_patience,
+                                                    verbose=verbosity, factor=lr_decay, min_lr=lr_min)
         callbacks.append(learning_rate_reduction)
 
     if early_stopping_patience > 0:
-        early_stopping = EarlyStopping(monitor='val_acc', patience=early_stopping_patience, min_delta=1e-04,
-                                       verbose=verbosity)
+        early_stopping = EarlyStopping(monitor='val_categorical_accuracy', patience=early_stopping_patience,
+                                       min_delta=1e-04, verbose=verbosity)
         callbacks.append(early_stopping)
 
     return callbacks
@@ -235,7 +235,7 @@ if __name__ == '__main__':
     # Initialize optimizer.
     optimizer = initialize_optimizer()
     # Compile model.
-    model.compile(loss='categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
+    model.compile(optimizer, 'categorical_crossentropy', ['categorical_accuracy'])
     # Initialize callbacks list.
     callbacks_list = init_callbacks()
 
