@@ -15,9 +15,14 @@ from tensorflow.python.keras.utils import to_categorical
 
 from helpers.parser import create_training_parser
 from helpers.utils import create_path, plot_results
-from networks.cifar10 import cifar10_model2, cifar10_model3
+from networks.cifar10.cifar10_complicated_ensemble import cifar10_complicated_ensemble
 from networks.cifar10.cifar10_model1 import cifar10_model1
-from networks.cifar100 import cifar100_model1, cifar100_model2, cifar100_model3
+from networks.cifar10.cifar10_model2 import cifar10_model2
+from networks.cifar10.cifar10_model3 import cifar10_model3
+from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
+from networks.cifar100.cifar100_model1 import cifar100_model1
+from networks.cifar100.cifar100_model2 import cifar100_model2
+from networks.cifar100.cifar100_model3 import cifar100_model3
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -62,12 +67,16 @@ def create_model() -> Sequential:
         model_generator = cifar10_model2
     elif model_name == 'cifar10_model3':
         model_generator = cifar10_model3
+    elif model_name == 'cifar10_complicated_ensemble':
+        model_generator = cifar10_complicated_ensemble
     elif model_name == 'cifar100_model1':
         model_generator = cifar100_model1
     elif model_name == 'cifar100_model2':
         model_generator = cifar100_model2
     elif model_name == 'cifar100_model3':
         model_generator = cifar100_model3
+    elif model_name == 'cifar100_complicated_ensemble':
+        model_generator = cifar100_complicated_ensemble
     else:
         raise ValueError('Unrecognised model!')
 
