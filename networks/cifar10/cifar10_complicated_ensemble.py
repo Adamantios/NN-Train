@@ -1,9 +1,10 @@
 from os.path import isfile
 from typing import Union
 
-from tensorflow import stack, expand_dims
 from tensorflow.python.keras import Input, Model
 from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten, Average, Concatenate
+
+from networks.tools import Crop
 
 
 def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=None,
@@ -48,9 +49,9 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     # Add Submodel 1 top layers.
     x1 = Flatten(name='submodel1_flatten')(x1)
     outputs1 = Dense(2, activation='softmax', name='submodel1_softmax')(x1)
-    # Expand dimensions of Submodel 1 output, because we are going to concatenate all the classes outputs later
-    # which cannot be done if ndims=1.
-    output_list.append(expand_dims(outputs1[:, 0], axis=1))
+    # Crop outputs1 in order to create the first submodel's output.
+    outputs_first_submodel = Crop(1, 0, 1, name='first_class_submodel')(outputs1)
+    output_list.append(outputs_first_submodel)
 
     # Submodel 2.
     # Block1.
@@ -68,8 +69,12 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     outputs2 = Dense(3, activation='softmax', name='submodel2_softmax')(x2)
 
     # Average the predictions for the second class of the first two submodels.
-    averaged_class_2 = Average(name='average_second_class')([outputs1[:, 1], outputs2[:, 0]])
-    output_list.append(stack([averaged_class_2, outputs2[:, 1]], axis=1, name='second_submodel'))
+    averaged_class_2 = Average(name='averaged_second_class')([Crop(1, 1, 2)(outputs1), Crop(1, 0, 1)(outputs2)])
+    # Crop outputs2 in order to create the third class output.
+    outputs_class3 = Crop(1, 1, 2, name='third_class')(outputs2)
+    # Concatenate classes outputs in order to create the second submodel's output.
+    outputs_second_submodel = Concatenate(name='second_submodel')([averaged_class_2, outputs_class3])
+    output_list.append(outputs_second_submodel)
 
     # Submodel 3.
     # Block1.
@@ -87,8 +92,13 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     outputs3 = Dense(3, activation='softmax', name='submodel3_softmax')(x3)
 
     # Average the predictions for the fourth class of the last two submodels.
-    averaged_class_3 = Average(name='average_fourth_class')([outputs2[:, 2], outputs3[:, 0]])
-    output_list.append(stack([averaged_class_3, outputs3[:, 1], outputs3[:, 2]], axis=1, name='third_submodel'))
+    averaged_class_3 = Average(name='averaged_fourth_class')([Crop(1, 2, 3)(outputs2), Crop(1, 0, 1)(outputs3)])
+    # Crop outputs3 in order to create the fifth abd sixth class outputs.
+    outputs_class5 = Crop(1, 1, 2, name='fifth_class')(outputs3)
+    outputs_class6 = Crop(1, 2, 3, name='sixth_class')(outputs3)
+    # Concatenate classes outputs in order to create the third submodel's output.
+    outputs_third_submodel = Concatenate(name='third_submodel')([averaged_class_3, outputs_class5, outputs_class6])
+    output_list.append(outputs_third_submodel)
 
     # Submodel 4.
     # Block1.
@@ -108,7 +118,7 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
 
     # Add Submodel 4 top layers.
     x4 = Flatten(name='submodel4_flatten')(x4)
-    outputs4 = Dense(2, activation='softmax', name='submodel4_softmax')(x4)
+    outputs4 = Dense(2, activation='softmax', name='seventh_eighth_class_submodel4')(x4)
     output_list.append(outputs4)
 
     # Submodel 5.
@@ -129,7 +139,7 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
 
     # Add Submodel 5 top layers.
     x5 = Flatten(name='submodel5_flatten')(x5)
-    outputs5 = Dense(2, activation='softmax', name='submodel5_softmax')(x5)
+    outputs5 = Dense(2, activation='softmax', name='ninth_tenth_class_submodel5')(x5)
     output_list.append(outputs5)
 
     # Concatenate all class predictions together.
