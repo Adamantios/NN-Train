@@ -4,6 +4,8 @@ from typing import Union
 from tensorflow.python.keras import Sequential
 from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten
 
+from networks.tools import load_weights
+
 
 def cifar100_model3(n_classes: int, input_shape=None, input_tensor=None,
                     weights_path: Union[None, str] = None) -> Sequential:
@@ -53,12 +55,7 @@ def cifar100_model3(n_classes: int, input_shape=None, input_tensor=None,
     model.add(Flatten())
     model.add(Dense(n_classes, activation='softmax'))
 
-    if weights_path is not None:
-        # Check if weights file exists.
-        if not isfile(weights_path):
-            raise FileNotFoundError('Network weights file {} does not exist.'.format(weights_path))
-
-        # Load weights.
-        model.load_weights(weights_path, True)
+    # Load weights, if they exist.
+    load_weights(weights_path, model)
 
     return model

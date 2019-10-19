@@ -1,3 +1,6 @@
+from os.path import isfile
+
+from tensorflow.python.keras import Model
 from tensorflow.python.keras.engine import Layer
 
 
@@ -28,3 +31,19 @@ class Crop(Layer):
 
     def compute_output_shape(self, input_shape):
         return input_shape[0], self.output_dim
+
+
+def load_weights(weights_path: str, model: Model) -> None:
+    """
+    Loads external weights, if the weights path exists, otherwise, raises a FileNotFoundError.
+
+    :param weights_path: the path to the weights.
+    :param model: the model.
+    """
+    if weights_path is not None:
+        # Check if weights file exists.
+        if not isfile(weights_path):
+            raise FileNotFoundError('Network weights file {} does not exist.'.format(weights_path))
+
+        # Load weights.
+        model.load_weights(weights_path, True)

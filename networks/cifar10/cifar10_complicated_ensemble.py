@@ -1,10 +1,9 @@
-from os.path import isfile
 from typing import Union
 
 from tensorflow.python.keras import Input, Model
 from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten, Average, Concatenate
 
-from networks.tools import Crop
+from networks.tools import Crop, load_weights
 
 
 def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=None,
@@ -147,13 +146,7 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
 
     # Create model.
     model = Model(inputs, outputs, name='cifar10_complicated_ensemble')
-
-    if weights_path is not None:
-        # Check if weights file exists.
-        if not isfile(weights_path):
-            raise FileNotFoundError('Network weights file {} does not exist.'.format(weights_path))
-
-        # Load weights.
-        model.load_weights(weights_path, True)
+    # Load weights, if they exist.
+    load_weights(weights_path, model)
 
     return model
