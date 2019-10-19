@@ -1,7 +1,7 @@
 from os.path import isfile
 
 from tensorflow.python.keras import Model
-from tensorflow.python.keras.engine import Layer
+from tensorflow.python.keras.engine import Layer, InputSpec
 
 
 class Crop(Layer):
@@ -15,7 +15,8 @@ class Crop(Layer):
         super(Crop, self).__init__(**kwargs)
 
     def build(self, input_shape):
-        super(Crop, self).build(input_shape)  # Be sure to call this at the end
+        self.input_spec = [InputSpec(shape=input_shape)]
+        super(Crop, self).build(input_shape)
 
     def call(self, inputs, **kwargs):
         if self.dimension == 0:
@@ -31,6 +32,16 @@ class Crop(Layer):
 
     def compute_output_shape(self, input_shape):
         return input_shape[0], self.output_dim
+
+    def get_config(self):
+        config = {
+            'dimension': self.dimension,
+            'start': self.start,
+            'end': self.end
+        }
+        base_config = super(Crop, self).get_config()
+        base_config.update(config)
+        return base_config
 
 
 def load_weights(weights_path: str, model: Model) -> None:
