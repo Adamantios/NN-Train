@@ -28,6 +28,7 @@ from networks.cifar100.cifar100_model3 import cifar100_model3
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
     """
     Loads the dataset.
+
     :return: the data and the number of classes.
     """
     if dataset == 'cifar10':
@@ -59,6 +60,7 @@ def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
 def create_model() -> Sequential:
     """
     Creates the model and loads weights as a start point if they exist.
+
     :return: Keras Sequential model.
     """
     if model_name == 'cifar10_model1':
@@ -120,6 +122,7 @@ def initialize_optimizer() -> Union[adam, rmsprop, sgd, adagrad, adadelta, adama
 def init_callbacks() -> []:
     """
     Initializes callbacks for the training procedure.
+
     :return: the callbacks list.
     """
     callbacks = []
