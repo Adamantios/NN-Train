@@ -31,7 +31,7 @@ def plot_results(history: dict, save_folder: str = None) -> None:
 
     # Accuracy.
     fig = plt.figure(figsize=(12, 10))
-    plt.plot(history['acc'])
+    plt.plot(history['categorical_accuracy'])
     plt.plot(history['val_categorical_accuracy'])
     plt.title('Train/Test accuracy', fontsize='x-large')
     plt.xlabel('epoch', fontsize='large')
@@ -55,7 +55,7 @@ def plot_results(history: dict, save_folder: str = None) -> None:
 
     # Accuracy + Loss.
     fig = plt.figure(figsize=(12, 10))
-    plt.plot(history['acc'])
+    plt.plot(history['categorical_accuracy'])
     plt.plot(history['val_categorical_accuracy'])
     plt.plot(history['loss'], linestyle='dashed')
     plt.plot(history['val_loss'], linestyle='dashed')
