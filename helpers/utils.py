@@ -10,6 +10,7 @@ from networks.cifar10.cifar10_complicated_ensemble import cifar10_complicated_en
 from networks.cifar10.cifar10_model1 import cifar10_model1
 from networks.cifar10.cifar10_model2 import cifar10_model2
 from networks.cifar10.cifar10_model3 import cifar10_model3
+from networks.cifar10.cifar10_pyramid_ensemble import cifar10_pyramid_ensemble
 from networks.cifar10.cifar10_student_strong import cifar10_student_strong
 from networks.cifar10.cifar10_student_weak import cifar10_student_weak
 from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
@@ -97,6 +98,8 @@ def create_model(model_name: str, start_point: str, x_train: ndarray, n_classes:
         model_generator = cifar10_model3
     elif model_name == 'cifar10_complicated_ensemble':
         model_generator = cifar10_complicated_ensemble
+    elif model_name == 'cifar10_pyramid_ensemble':
+        model_generator = cifar10_pyramid_ensemble
     elif model_name == 'cifar10_student_strong':
         model_generator = cifar10_student_strong
     elif model_name == 'cifar10_student_weak':
