@@ -1,7 +1,8 @@
 from typing import Union
 
 from tensorflow.python.keras import Input, Model
-from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten, Average, Concatenate
+from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten, Average, Concatenate, \
+    Softmax
 
 from networks.tools import Crop, load_weights
 
@@ -47,7 +48,7 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Add Submodel 1 top layers.
     x1 = Flatten(name='submodel1_flatten')(x1)
-    outputs1 = Dense(20, activation='softmax', name='submodel1_softmax')(x1)
+    outputs1 = Dense(20, name='submodel1_output')(x1)
     # Crop outputs1 in order to create the first submodel's output.
     outputs_first_submodel = Crop(1, 0, 10, name='first_ten_classes_submodel')(outputs1)
     output_list.append(outputs_first_submodel)
@@ -65,7 +66,7 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Add Submodel 2 top layers.
     x2 = Flatten(name='submodel2_flatten')(x2)
-    outputs2 = Dense(30, activation='softmax', name='submodel2_softmax')(x2)
+    outputs2 = Dense(30, name='submodel2_output')(x2)
 
     # Average the predictions for the second class of the first two submodels.
     averaged_classes_20_30 = Average(name='averaged_second_ten_classes')(
@@ -89,7 +90,7 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Add Submodel 3 top layers.
     x3 = Flatten(name='submodel3_flatten')(x3)
-    outputs3 = Dense(30, activation='softmax', name='submodel3_softmax')(x3)
+    outputs3 = Dense(30, name='submodel3_output')(x3)
 
     # Average the predictions for the fourth class of the last two submodels.
     averaged_classes_30_40 = Average(name='averaged_fourth_ten_class')([
@@ -125,7 +126,7 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Add Submodel 4 top layers.
     x4 = Flatten(name='submodel4_flatten')(x4)
-    outputs4 = Dense(20, activation='softmax', name='seventh_eighth_class_submodel4')(x4)
+    outputs4 = Dense(20, name='seventh_eighth_class_submodel4')(x4)
     output_list.append(outputs4)
 
     # Submodel 5.
@@ -146,11 +147,12 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Add Submodel 5 top layers.
     x5 = Flatten(name='submodel5_flatten')(x5)
-    outputs5 = Dense(20, activation='softmax', name='ninth_tenth_class_submodel5')(x5)
+    outputs5 = Dense(20, name='ninth_tenth_class_submodel5')(x5)
     output_list.append(outputs5)
 
     # Concatenate all class predictions together.
     outputs = Concatenate(name='output')(output_list)
+    outputs = Softmax(name='output_softmax')(outputs)
 
     # Create model.
     model = Model(inputs, outputs, name='cifar100_complicated_ensemble')
