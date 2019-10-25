@@ -19,6 +19,8 @@ from networks.cifar10.cifar10_complicated_ensemble import cifar10_complicated_en
 from networks.cifar10.cifar10_model1 import cifar10_model1
 from networks.cifar10.cifar10_model2 import cifar10_model2
 from networks.cifar10.cifar10_model3 import cifar10_model3
+from networks.cifar10.cifar10_student_strong import cifar10_student_strong
+from networks.cifar10.cifar10_student_weak import cifar10_student_weak
 from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
 from networks.cifar100.cifar100_model1 import cifar100_model1
 from networks.cifar100.cifar100_model2 import cifar100_model2
@@ -71,6 +73,10 @@ def create_model() -> Sequential:
         model_generator = cifar10_model3
     elif model_name == 'cifar10_complicated_ensemble':
         model_generator = cifar10_complicated_ensemble
+    elif model_name == 'cifar10_student_strong':
+        model_generator = cifar10_student_strong
+    elif model_name == 'cifar10_student_weak':
+        model_generator = cifar10_student_weak
     elif model_name == 'cifar100_model1':
         model_generator = cifar100_model1
     elif model_name == 'cifar100_model2':
@@ -264,8 +270,11 @@ if __name__ == '__main__':
 
     # Plot results.
     save_folder = out_folder if save_plots else None
-    plot_results(history.history, save_folder)
-    # Evaluate results.
-    evaluate_results()
+
+    if history.history:
+        plot_results(history.history, save_folder)
+        # Evaluate results.
+        evaluate_results()
+
     # Save results.
     save_results()
