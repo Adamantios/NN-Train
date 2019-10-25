@@ -1,11 +1,9 @@
 import logging
-import os
 import pickle
 from os.path import join
 from typing import Union, Tuple, Any
 
 from numpy import ndarray
-from tensorflow.python.keras import Sequential
 from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
 from tensorflow.python.keras.datasets import cifar10, cifar100
 from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
@@ -14,17 +12,7 @@ from tensorflow.python.keras.saving import save_model
 from tensorflow.python.keras.utils import to_categorical
 
 from helpers.parser import create_training_parser
-from helpers.utils import create_path, plot_results
-from networks.cifar10.cifar10_complicated_ensemble import cifar10_complicated_ensemble
-from networks.cifar10.cifar10_model1 import cifar10_model1
-from networks.cifar10.cifar10_model2 import cifar10_model2
-from networks.cifar10.cifar10_model3 import cifar10_model3
-from networks.cifar10.cifar10_student_strong import cifar10_student_strong
-from networks.cifar10.cifar10_student_weak import cifar10_student_weak
-from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
-from networks.cifar100.cifar100_model1 import cifar100_model1
-from networks.cifar100.cifar100_model2 import cifar100_model2
-from networks.cifar100.cifar100_model3 import cifar100_model3
+from helpers.utils import create_path, plot_results, create_model
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -57,44 +45,6 @@ def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
         raise ValueError("Unrecognised dataset!")
 
     return train, test
-
-
-def create_model() -> Sequential:
-    """
-    Creates the model and loads weights as a start point if they exist.
-
-    :return: Keras Sequential model.
-    """
-    if model_name == 'cifar10_model1':
-        model_generator = cifar10_model1
-    elif model_name == 'cifar10_model2':
-        model_generator = cifar10_model2
-    elif model_name == 'cifar10_model3':
-        model_generator = cifar10_model3
-    elif model_name == 'cifar10_complicated_ensemble':
-        model_generator = cifar10_complicated_ensemble
-    elif model_name == 'cifar10_student_strong':
-        model_generator = cifar10_student_strong
-    elif model_name == 'cifar10_student_weak':
-        model_generator = cifar10_student_weak
-    elif model_name == 'cifar100_model1':
-        model_generator = cifar100_model1
-    elif model_name == 'cifar100_model2':
-        model_generator = cifar100_model2
-    elif model_name == 'cifar100_model3':
-        model_generator = cifar100_model3
-    elif model_name == 'cifar100_complicated_ensemble':
-        model_generator = cifar100_complicated_ensemble
-    else:
-        raise ValueError('Unrecognised model!')
-
-    if start_point != '':
-        if os.path.isfile(start_point):
-            return model_generator(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
-        else:
-            raise FileNotFoundError('Checkpoint file \'{}\' not found.'.format(start_point))
-    else:
-        return model_generator(input_shape=x_train.shape[1:], n_classes=n_classes)
 
 
 def initialize_optimizer() -> Union[adam, rmsprop, sgd, adagrad, adadelta, adamax]:
@@ -249,7 +199,7 @@ if __name__ == '__main__':
     y_test = to_categorical(y_test, n_classes)
 
     # Create model.
-    model = create_model()
+    model = create_model(model_name, start_point, x_train, n_classes)
     # Initialize optimizer.
     optimizer = initialize_optimizer()
     # Compile model.

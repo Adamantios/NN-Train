@@ -1,7 +1,21 @@
-from os import path, makedirs
-from os.path import join
+from os import makedirs
+from os.path import join, isfile, dirname, exists
+from typing import Union
 
 import matplotlib.pyplot as plt
+from numpy.core.multiarray import ndarray
+from tensorflow.python.keras import Sequential, Model
+
+from networks.cifar10.cifar10_complicated_ensemble import cifar10_complicated_ensemble
+from networks.cifar10.cifar10_model1 import cifar10_model1
+from networks.cifar10.cifar10_model2 import cifar10_model2
+from networks.cifar10.cifar10_model3 import cifar10_model3
+from networks.cifar10.cifar10_student_strong import cifar10_student_strong
+from networks.cifar10.cifar10_student_weak import cifar10_student_weak
+from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
+from networks.cifar100.cifar100_model1 import cifar100_model1
+from networks.cifar100.cifar100_model2 import cifar100_model2
+from networks.cifar100.cifar100_model3 import cifar100_model3
 
 
 def create_path(filepath: str) -> None:
@@ -11,10 +25,10 @@ def create_path(filepath: str) -> None:
     :param filepath: the filepath.
     """
     # Get the file's directory.
-    directory = path.dirname(filepath)
+    directory = dirname(filepath)
 
     # Create directory if it does not exist
-    if not path.exists(directory):
+    if not exists(directory):
         makedirs(directory)
 
 
@@ -67,3 +81,41 @@ def plot_results(history: dict, save_folder: str = None) -> None:
     plt.show()
     if save_folder is not None:
         fig.savefig(acc_loss_plot_filepath)
+
+
+def create_model(model_name: str, start_point: str, x_train: ndarray, n_classes: int) -> Union[Sequential, Model]:
+    """
+    Creates the model and loads weights as a start point if they exist.
+
+    :return: Keras Sequential or functional API model.
+    """
+    if model_name == 'cifar10_model1':
+        model_generator = cifar10_model1
+    elif model_name == 'cifar10_model2':
+        model_generator = cifar10_model2
+    elif model_name == 'cifar10_model3':
+        model_generator = cifar10_model3
+    elif model_name == 'cifar10_complicated_ensemble':
+        model_generator = cifar10_complicated_ensemble
+    elif model_name == 'cifar10_student_strong':
+        model_generator = cifar10_student_strong
+    elif model_name == 'cifar10_student_weak':
+        model_generator = cifar10_student_weak
+    elif model_name == 'cifar100_model1':
+        model_generator = cifar100_model1
+    elif model_name == 'cifar100_model2':
+        model_generator = cifar100_model2
+    elif model_name == 'cifar100_model3':
+        model_generator = cifar100_model3
+    elif model_name == 'cifar100_complicated_ensemble':
+        model_generator = cifar100_complicated_ensemble
+    else:
+        raise ValueError('Unrecognised model!')
+
+    if start_point != '':
+        if isfile(start_point):
+            return model_generator(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
+        else:
+            raise FileNotFoundError('Checkpoint file \'{}\' not found.'.format(start_point))
+    else:
+        return model_generator(input_shape=x_train.shape[1:], n_classes=n_classes)
