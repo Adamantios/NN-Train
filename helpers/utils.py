@@ -7,6 +7,11 @@ from numpy.core.multiarray import ndarray
 from tensorflow.python.keras import Sequential, Model
 
 from networks.cifar10.complicated_ensemble.ensemble import cifar10_complicated_ensemble
+from networks.cifar10.complicated_ensemble.submodel1 import cifar10_complicated_ensemble_submodel1
+from networks.cifar10.complicated_ensemble.submodel2 import cifar10_complicated_ensemble_submodel2
+from networks.cifar10.complicated_ensemble.submodel3 import cifar10_complicated_ensemble_submodel3
+from networks.cifar10.complicated_ensemble.submodel4 import cifar10_complicated_ensemble_submodel4
+from networks.cifar10.complicated_ensemble.submodel5 import cifar10_complicated_ensemble_submodel5
 from networks.cifar10.different_architectures.model1 import cifar10_model1
 from networks.cifar10.different_architectures.model2 import cifar10_model2
 from networks.cifar10.different_architectures.model3 import cifar10_model3
@@ -98,6 +103,16 @@ def create_model(model_name: str, start_point: str, x_train: ndarray, n_classes:
         model_generator = cifar10_model3
     elif model_name == 'cifar10_complicated_ensemble':
         model_generator = cifar10_complicated_ensemble
+    elif model_name == 'cifar10_complicated_ensemble_submodel1':
+        model_generator = cifar10_complicated_ensemble_submodel1
+    elif model_name == 'cifar10_complicated_ensemble_submodel2':
+        model_generator = cifar10_complicated_ensemble_submodel2
+    elif model_name == 'cifar10_complicated_ensemble_submodel3':
+        model_generator = cifar10_complicated_ensemble_submodel3
+    elif model_name == 'cifar10_complicated_ensemble_submodel4':
+        model_generator = cifar10_complicated_ensemble_submodel4
+    elif model_name == 'cifar10_complicated_ensemble_submodel5':
+        model_generator = cifar10_complicated_ensemble_submodel5
     elif model_name == 'cifar10_pyramid_ensemble':
         model_generator = cifar10_pyramid_ensemble
     elif model_name == 'cifar10_student_strong':
