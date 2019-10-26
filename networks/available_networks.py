@@ -73,8 +73,8 @@ subnetworks: Dict[str, LabelsManipulatorType] = {
         labels_manipulation(cifar10_complicated_ensemble_submodel4_labels_manipulation),
     'cifar10_complicated_ensemble_submodel5':
         labels_manipulation(cifar10_complicated_ensemble_submodel5_labels_manipulation),
-    'cifar10_pyramid_ensemble_submodel2':
+    'cifar10_pyramid_ensemble_submodel_weak1':
         labels_manipulation(cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation),
-    'cifar10_pyramid_ensemble_submodel3':
+    'cifar10_pyramid_ensemble_submodel_weak2':
         labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation),
 }
