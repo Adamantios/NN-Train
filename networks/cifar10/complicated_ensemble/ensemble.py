@@ -68,12 +68,12 @@ def cifar10_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=
     outputs3 = Dense(3, name='submodel3_output')(x3)
 
     # Average the predictions for the fourth class of the last two submodels.
-    averaged_class_3 = Average(name='averaged_fourth_class')([Crop(1, 2, 3)(outputs2), Crop(1, 0, 1)(outputs3)])
+    averaged_class_4 = Average(name='averaged_fourth_class')([Crop(1, 2, 3)(outputs2), Crop(1, 0, 1)(outputs3)])
     # Crop outputs3 in order to create the fifth abd sixth class outputs.
     outputs_class5 = Crop(1, 1, 2, name='fifth_class')(outputs3)
     outputs_class6 = Crop(1, 2, 3, name='sixth_class')(outputs3)
     # Concatenate classes outputs in order to create the third submodel's output.
-    outputs_third_submodel = Concatenate(name='third_submodel')([averaged_class_3, outputs_class5, outputs_class6])
+    outputs_third_submodel = Concatenate(name='third_submodel')([averaged_class_4, outputs_class5, outputs_class6])
     output_list.append(outputs_third_submodel)
 
     # Submodel 4.
