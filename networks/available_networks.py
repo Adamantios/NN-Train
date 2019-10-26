@@ -18,6 +18,11 @@ from networks.cifar10.different_architectures.model1 import cifar10_model1
 from networks.cifar10.different_architectures.model2 import cifar10_model2
 from networks.cifar10.different_architectures.model3 import cifar10_model3
 from networks.cifar10.pyramid_ensemble.ensemble import cifar10_pyramid_ensemble
+from networks.cifar10.pyramid_ensemble.submodel_strong import cifar10_pyramid_ensemble_submodel_strong
+from networks.cifar10.pyramid_ensemble.submodel_weak1 import \
+    cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation, cifar10_pyramid_ensemble_submodel_weak1
+from networks.cifar10.pyramid_ensemble.submodel_weak2 import \
+    cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation, cifar10_pyramid_ensemble_submodel_weak2
 from networks.cifar10.students.strong import cifar10_student_strong
 from networks.cifar10.students.weak import cifar10_student_weak
 from networks.cifar100 import cifar100_complicated_ensemble, cifar100_model3, cifar100_model2, cifar100_model1
@@ -33,6 +38,9 @@ networks: Dict[str, Callable[[any, any, any, Union[None, str]], Union[Model, Seq
     'cifar10_complicated_ensemble_submodel4': cifar10_complicated_ensemble_submodel4,
     'cifar10_complicated_ensemble_submodel5': cifar10_complicated_ensemble_submodel5,
     'cifar10_pyramid_ensemble': cifar10_pyramid_ensemble,
+    'cifar10_pyramid_ensemble_submodel_strong': cifar10_pyramid_ensemble_submodel_strong,
+    'cifar10_pyramid_ensemble_submodel_weak1': cifar10_pyramid_ensemble_submodel_weak1,
+    'cifar10_pyramid_ensemble_submodel_weak2': cifar10_pyramid_ensemble_submodel_weak2,
     'cifar10_student_strong': cifar10_student_strong,
     'cifar10_student_weak': cifar10_student_weak,
     'cifar100_model1': cifar100_model1,
@@ -64,5 +72,9 @@ subnetworks: Dict[str, LabelsManipulatorType] = {
     'cifar10_complicated_ensemble_submodel4':
         labels_manipulation(cifar10_complicated_ensemble_submodel4_labels_manipulation),
     'cifar10_complicated_ensemble_submodel5':
-        labels_manipulation(cifar10_complicated_ensemble_submodel5_labels_manipulation)
+        labels_manipulation(cifar10_complicated_ensemble_submodel5_labels_manipulation),
+    'cifar10_pyramid_ensemble_submodel2':
+        labels_manipulation(cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation),
+    'cifar10_pyramid_ensemble_submodel3':
+        labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation),
 }
