@@ -1,6 +1,6 @@
 from typing import Union
 
-from numpy.core.multiarray import ndarray
+from numpy.core.multiarray import ndarray, logical_or
 from tensorflow.python.keras import Model
 
 from networks.cifar10.complicated_ensemble.submodel1 import cifar10_complicated_ensemble_submodel1
@@ -27,7 +27,7 @@ def cifar10_complicated_ensemble_submodel4_labels_manipulation(labels_array: nda
     :param labels_array: the labels to manipulate.
     :return: the number of classes predicted by the model.
     """
-    labels_array[labels_array < 6 or labels_array > 7] = 0
+    labels_array[logical_or(labels_array < 6, labels_array > 7)] = 0
     labels_array[labels_array == 6] = 1
     labels_array[labels_array == 7] = 2
     return 3
