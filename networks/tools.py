@@ -1,7 +1,8 @@
 from os.path import isfile
+from typing import Union
 
-from tensorflow.python.keras import Model
-from tensorflow.python.keras.engine import Layer, InputSpec
+from tensorflow.python.keras import Model, Input
+from tensorflow.python.keras.engine import Layer, InputSpec, InputLayer
 
 
 class Crop(Layer):
@@ -42,6 +43,20 @@ class Crop(Layer):
         base_config = super(Crop, self).get_config()
         base_config.update(config)
         return base_config
+
+
+def create_inputs(input_shape, input_tensor) -> Union[InputLayer, Input]:
+    if input_shape is None and input_tensor is None:
+        raise ValueError('You need to specify input shape or input tensor for the network.')
+
+    # Create input.
+    if input_shape is None:
+        # Create an InputLayer using the input tensor.
+        inputs = InputLayer(input_tensor=input_tensor, name='input')
+    else:
+        inputs = Input(shape=input_shape, name='input')
+
+    return inputs
 
 
 def load_weights(weights_path: str, model: Model) -> None:

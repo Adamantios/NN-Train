@@ -1,11 +1,10 @@
 from typing import Union
 
-from tensorflow.python.keras import Model, Input
-from tensorflow.python.keras.engine import InputLayer
+from tensorflow.python.keras import Model
 from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Activation, Dropout
 from tensorflow.python.keras.regularizers import l2
 
-from networks.tools import load_weights
+from networks.tools import load_weights, create_inputs
 
 
 def cifar10_student_weak(n_classes: int, input_shape=None, input_tensor=None,
@@ -19,15 +18,7 @@ def cifar10_student_weak(n_classes: int, input_shape=None, input_tensor=None,
     :param weights_path: a path to a trained cifar10 tiny network's weights.
     :return: Keras functional Model.
     """
-    if input_shape is None and input_tensor is None:
-        raise ValueError('You need to specify input shape or input tensor for the network.')
-
-    # Create input.
-    if input_shape is None:
-        # Create an InputLayer using the input tensor.
-        inputs = InputLayer(input_tensor=input_tensor, name='input')
-    else:
-        inputs = Input(shape=input_shape, name='input')
+    inputs = create_inputs(input_shape, input_tensor)
 
     # Define a weight decay for the regularisation.
     weight_decay = 1e-4

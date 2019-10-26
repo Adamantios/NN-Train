@@ -1,10 +1,10 @@
 from typing import Union
 
-from tensorflow.python.keras import Input, Model
-from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, InputLayer, Dense, Flatten, Average, Concatenate, \
+from tensorflow.python.keras import Model
+from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Average, Concatenate, \
     Softmax, Dropout, BatchNormalization
 
-from networks.tools import Crop, load_weights
+from networks.tools import Crop, load_weights, create_inputs
 
 
 def cifar10_pyramid_ensemble(input_shape=None, input_tensor=None, n_classes=None,
@@ -19,16 +19,7 @@ def cifar10_pyramid_ensemble(input_shape=None, input_tensor=None, n_classes=None
     :return: Keras functional API Model.
     """
     output_list = []
-
-    if input_shape is None and input_tensor is None:
-        raise ValueError('You need to specify input shape or input tensor for the network.')
-
-    # Create input.
-    if input_shape is None:
-        # Create an InputLayer using the input tensor.
-        inputs = InputLayer(input_tensor=input_tensor, name='input')
-    else:
-        inputs = Input(shape=input_shape, name='input')
+    inputs = create_inputs(input_shape, input_tensor)
 
     # Submodel Strong.
     # Block1.
