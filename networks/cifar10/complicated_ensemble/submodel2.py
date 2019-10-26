@@ -45,7 +45,4 @@ def cifar10_complicated_ensemble_submodel2_labels_manipulation(labels_array: nda
     :return: the number of classes predicted by the model.
     """
     labels_array[logical_or(labels_array < 1, labels_array > 3)] = 0
-    labels_array[labels_array == 1] = 1
-    labels_array[labels_array == 2] = 2
-    labels_array[labels_array == 3] = 3
     return 4
