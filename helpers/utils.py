@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 from numpy.core.multiarray import ndarray
 from tensorflow.python.keras import Sequential, Model
 
-from networks.cifar10.cifar10_complicated_ensemble import cifar10_complicated_ensemble
-from networks.cifar10.cifar10_model1 import cifar10_model1
-from networks.cifar10.cifar10_model2 import cifar10_model2
-from networks.cifar10.cifar10_model3 import cifar10_model3
-from networks.cifar10.cifar10_pyramid_ensemble import cifar10_pyramid_ensemble
-from networks.cifar10.cifar10_student_strong import cifar10_student_strong
-from networks.cifar10.cifar10_student_weak import cifar10_student_weak
+from networks.cifar10.complicated_ensemble.complicated_ensemble import cifar10_complicated_ensemble
+from networks.cifar10.different_architectures.model1 import cifar10_model1
+from networks.cifar10.different_architectures.model2 import cifar10_model2
+from networks.cifar10.different_architectures.model3 import cifar10_model3
+from networks.cifar10.pyramid_ensemble.pyramid_ensemble import cifar10_pyramid_ensemble
+from networks.cifar10.students.student_strong import cifar10_student_strong
+from networks.cifar10.students.student_weak import cifar10_student_weak
 from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
 from networks.cifar100.cifar100_model1 import cifar100_model1
 from networks.cifar100.cifar100_model2 import cifar100_model2
