@@ -1,16 +1,13 @@
 from argparse import ArgumentParser
 
+from networks.available_networks import networks
+
 # ----------------------------------- DEFAULT ARGUMENTS ------------------------------------------
 
 DATASET = 'cifar10'
 DATASET_CHOICES = 'cifar10', 'cifar100'
 NETWORK = 'cifar10_model1'
-NETWORK_CHOICES = 'cifar10_model1', 'cifar10_model2', 'cifar10_model3', 'cifar10_complicated_ensemble', \
-                  'cifar10_complicated_ensemble_submodel1', 'cifar10_complicated_ensemble_submodel2', \
-                  'cifar10_complicated_ensemble_submodel3', 'cifar10_complicated_ensemble_submodel4', \
-                  'cifar10_complicated_ensemble_submodel5', 'cifar10_pyramid_ensemble', 'cifar10_student_strong', \
-                  'cifar10_student_weak', \
-                  'cifar100_model1', 'cifar100_model2', 'cifar100_model3', 'cifar100_complicated_ensemble'
+NETWORK_CHOICES = networks.keys()
 START_POINT = ''
 SAVE_WEIGHTS = True
 SAVE_MODEL = True

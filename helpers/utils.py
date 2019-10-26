@@ -6,22 +6,7 @@ import matplotlib.pyplot as plt
 from numpy.core.multiarray import ndarray
 from tensorflow.python.keras import Sequential, Model
 
-from networks.cifar10.complicated_ensemble.ensemble import cifar10_complicated_ensemble
-from networks.cifar10.complicated_ensemble.submodel1 import cifar10_complicated_ensemble_submodel1
-from networks.cifar10.complicated_ensemble.submodel2 import cifar10_complicated_ensemble_submodel2
-from networks.cifar10.complicated_ensemble.submodel3 import cifar10_complicated_ensemble_submodel3
-from networks.cifar10.complicated_ensemble.submodel4 import cifar10_complicated_ensemble_submodel4
-from networks.cifar10.complicated_ensemble.submodel5 import cifar10_complicated_ensemble_submodel5
-from networks.cifar10.different_architectures.model1 import cifar10_model1
-from networks.cifar10.different_architectures.model2 import cifar10_model2
-from networks.cifar10.different_architectures.model3 import cifar10_model3
-from networks.cifar10.pyramid_ensemble.ensemble import cifar10_pyramid_ensemble
-from networks.cifar10.students.strong import cifar10_student_strong
-from networks.cifar10.students.weak import cifar10_student_weak
-from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
-from networks.cifar100.cifar100_model1 import cifar100_model1
-from networks.cifar100.cifar100_model2 import cifar100_model2
-from networks.cifar100.cifar100_model3 import cifar100_model3
+from networks.available_networks import networks
 
 
 def create_path(filepath: str) -> None:
@@ -95,45 +80,16 @@ def create_model(model_name: str, start_point: str, x_train: ndarray, n_classes:
 
     :return: Keras Sequential or functional API model.
     """
-    if model_name == 'cifar10_model1':
-        model_generator = cifar10_model1
-    elif model_name == 'cifar10_model2':
-        model_generator = cifar10_model2
-    elif model_name == 'cifar10_model3':
-        model_generator = cifar10_model3
-    elif model_name == 'cifar10_complicated_ensemble':
-        model_generator = cifar10_complicated_ensemble
-    elif model_name == 'cifar10_complicated_ensemble_submodel1':
-        model_generator = cifar10_complicated_ensemble_submodel1
-    elif model_name == 'cifar10_complicated_ensemble_submodel2':
-        model_generator = cifar10_complicated_ensemble_submodel2
-    elif model_name == 'cifar10_complicated_ensemble_submodel3':
-        model_generator = cifar10_complicated_ensemble_submodel3
-    elif model_name == 'cifar10_complicated_ensemble_submodel4':
-        model_generator = cifar10_complicated_ensemble_submodel4
-    elif model_name == 'cifar10_complicated_ensemble_submodel5':
-        model_generator = cifar10_complicated_ensemble_submodel5
-    elif model_name == 'cifar10_pyramid_ensemble':
-        model_generator = cifar10_pyramid_ensemble
-    elif model_name == 'cifar10_student_strong':
-        model_generator = cifar10_student_strong
-    elif model_name == 'cifar10_student_weak':
-        model_generator = cifar10_student_weak
-    elif model_name == 'cifar100_model1':
-        model_generator = cifar100_model1
-    elif model_name == 'cifar100_model2':
-        model_generator = cifar100_model2
-    elif model_name == 'cifar100_model3':
-        model_generator = cifar100_model3
-    elif model_name == 'cifar100_complicated_ensemble':
-        model_generator = cifar100_complicated_ensemble
-    else:
-        raise ValueError('Unrecognised model!')
+    for name in networks.keys():
+        if model_name == name:
+            model_generator = networks.get(name)
 
-    if start_point != '':
-        if isfile(start_point):
-            return model_generator(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
-        else:
-            raise FileNotFoundError('Checkpoint file \'{}\' not found.'.format(start_point))
-    else:
-        return model_generator(input_shape=x_train.shape[1:], n_classes=n_classes)
+            if start_point != '':
+                if isfile(start_point):
+                    return model_generator(input_shape=x_train.shape[1:], weights_path=start_point, n_classes=n_classes)
+                else:
+                    raise FileNotFoundError('Checkpoint file \'{}\' not found.'.format(start_point))
+            else:
+                return model_generator(input_shape=x_train.shape[1:], n_classes=n_classes)
+
+    raise ValueError('Unrecognised model!')
