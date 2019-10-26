@@ -1,5 +1,6 @@
 from typing import Union
 
+from numpy.core.multiarray import ndarray
 from tensorflow.python.keras import Model
 from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 
@@ -34,3 +35,17 @@ def cifar10_complicated_ensemble_submodel3(input_shape=None, input_tensor=None, 
     load_weights(weights_path, model)
 
     return model
+
+
+def cifar10_complicated_ensemble_submodel3_labels_manipulation(labels_array: ndarray) -> int:
+    """
+    The model's labels manipulator.
+
+    :param labels_array: the labels to manipulate.
+    :return: the number of classes predicted by the model.
+    """
+    labels_array[labels_array < 3 or labels_array > 5] = 0
+    labels_array[labels_array == 3] = 1
+    labels_array[labels_array == 4] = 2
+    labels_array[labels_array == 5] = 3
+    return 4

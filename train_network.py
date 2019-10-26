@@ -13,6 +13,7 @@ from tensorflow.python.keras.utils import to_categorical
 
 from helpers.parser import create_training_parser
 from helpers.utils import create_path, plot_results, create_model
+from networks.available_networks import subnetworks
 
 
 def load_data() -> [Tuple[ndarray, ndarray], Tuple[Any, ndarray], int]:
@@ -150,6 +151,23 @@ def save_results() -> None:
         print('Network\'s history has been saved as {}.\n'.format(hist_filepath))
 
 
+def manipulate_labels(initial_n_classes: int) -> int:
+    """
+    Manipulates the labels, depending on the model being used.
+    For example some submodels need to be evaluated, but they do not predict all the labels.
+    Thus, we need to give them only the labels that they predict and all the others placed into a separate bin.
+
+    :param initial_n_classes: the initial number of classes. Returned in case there was no manipulation.
+    :return: the new number of classes.
+    """
+    for name in subnetworks.keys():
+        if model_name == name:
+            labels_manipulation = subnetworks.get(name)
+            return labels_manipulation([y_train, y_test])
+
+    return initial_n_classes
+
+
 if __name__ == '__main__':
     # Get arguments.
     args = create_training_parser().parse_args()
@@ -193,6 +211,8 @@ if __name__ == '__main__':
 
     # Load dataset.
     ((x_train, y_train), (x_test, y_test)), n_classes = load_data()
+    # Manipulate labels, based on the model being used.
+    n_classes = manipulate_labels(n_classes)
     # Preprocess data.
     x_train, x_test = preprocess_data(x_train.copy(), x_test.copy())
     y_train = to_categorical(y_train, n_classes)
