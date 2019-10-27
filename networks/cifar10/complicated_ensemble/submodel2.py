@@ -1,6 +1,7 @@
 from typing import Union
 
-from numpy.core.multiarray import ndarray, logical_or
+from numpy.core.multiarray import ndarray
+from numpy.ma import logical_or
 from tensorflow.python.keras import Model
 from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 

@@ -1,6 +1,7 @@
 from typing import Union
 
-from numpy.core.multiarray import ndarray, logical_or
+from numpy.core.multiarray import ndarray
+from numpy.ma import logical_or
 from tensorflow.python.keras import Model
 
 from networks.cifar10.complicated_ensemble.submodel1 import cifar10_complicated_ensemble_submodel1

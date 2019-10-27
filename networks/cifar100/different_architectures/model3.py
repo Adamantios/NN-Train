@@ -10,7 +10,7 @@ from networks.tools import load_weights
 def cifar100_model3(n_classes: int, input_shape=None, input_tensor=None,
                     weights_path: Union[None, str] = None) -> Sequential:
     """
-    Defines a cifar10 network.
+    Defines a cifar100 network.
 
     :param n_classes: the number of classes.
     We use this parameter even though we know its value,

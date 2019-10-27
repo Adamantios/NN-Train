@@ -10,7 +10,7 @@ from networks.tools import Crop, load_weights, create_inputs
 def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes=None,
                                   weights_path: Union[None, str] = None) -> Model:
     """
-    Defines a cifar10 network.
+    Defines a cifar100 network.
 
     :param n_classes: used in order to be compatible with the main script.
     :param input_shape: the input shape of the network. Can be omitted if input_tensor is used.
@@ -89,13 +89,13 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
         Crop(1, 0, 10)(outputs3)
     ])
     # Crop outputs3 in order to create the fifth abd sixth class outputs.
-    outputs_classes_50_60 = Crop(1, 10, 20, name='fifth_ten_class')(outputs3)
-    outputs_classes_60_70 = Crop(1, 20, 30, name='sixth_ten_class')(outputs3)
+    outputs_classes_40_50 = Crop(1, 10, 20, name='fifth_ten_class')(outputs3)
+    outputs_classes_50_60 = Crop(1, 20, 30, name='sixth_ten_class')(outputs3)
     # Concatenate classes outputs in order to create the third submodel's output.
     outputs_third_submodel = Concatenate(name='third_submodel')([
         averaged_classes_30_40,
-        outputs_classes_50_60,
-        outputs_classes_60_70
+        outputs_classes_40_50,
+        outputs_classes_50_60
     ])
     output_list.append(outputs_third_submodel)
 
@@ -117,7 +117,7 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Add Submodel 4 top layers.
     x4 = Flatten(name='submodel4_flatten')(x4)
-    outputs4 = Dense(20, name='seventh_eighth_class_submodel4')(x4)
+    outputs4 = Dense(20, name='60-80_classes_submodel4')(x4)
     output_list.append(outputs4)
 
     # Submodel 5.
@@ -138,7 +138,7 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Add Submodel 5 top layers.
     x5 = Flatten(name='submodel5_flatten')(x5)
-    outputs5 = Dense(20, name='ninth_tenth_class_submodel5')(x5)
+    outputs5 = Dense(20, name='80-100_classes_submodel4')(x5)
     output_list.append(outputs5)
 
     # Concatenate all class predictions together.
