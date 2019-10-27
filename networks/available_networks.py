@@ -25,9 +25,15 @@ from networks.cifar10.pyramid_ensemble.submodel_weak2 import \
     cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation, cifar10_pyramid_ensemble_submodel_weak2
 from networks.cifar10.students.strong import cifar10_student_strong
 from networks.cifar10.students.weak import cifar10_student_weak
-from networks.cifar100 import cifar100_complicated_ensemble, cifar100_model3, cifar100_model2, cifar100_model1
+from networks.cifar100.cifar100_complicated_ensemble import cifar100_complicated_ensemble
+from networks.cifar100.cifar100_model1 import cifar100_model1
+from networks.cifar100.cifar100_model2 import cifar100_model2
+from networks.cifar100.cifar100_model3 import cifar100_model3
 
-networks: Dict[str, Callable[[any, any, any, Union[None, str]], Union[Model, Sequential]]] = {
+NetworksType = Dict[str, Callable[[any, any, any, Union[None, str]], Union[Model, Sequential]]]
+LabelsManipulatorType = Callable[[List[ndarray]], int]
+
+_cifar10_networks: NetworksType = {
     'cifar10_model1': cifar10_model1,
     'cifar10_model2': cifar10_model2,
     'cifar10_model3': cifar10_model3,
@@ -42,17 +48,20 @@ networks: Dict[str, Callable[[any, any, any, Union[None, str]], Union[Model, Seq
     'cifar10_pyramid_ensemble_submodel_weak1': cifar10_pyramid_ensemble_submodel_weak1,
     'cifar10_pyramid_ensemble_submodel_weak2': cifar10_pyramid_ensemble_submodel_weak2,
     'cifar10_student_strong': cifar10_student_strong,
-    'cifar10_student_weak': cifar10_student_weak,
+    'cifar10_student_weak': cifar10_student_weak
+}
+
+_cifar100_networks: NetworksType = {
     'cifar100_model1': cifar100_model1,
     'cifar100_model2': cifar100_model2,
     'cifar100_model3': cifar100_model3,
     'cifar100_complicated_ensemble': cifar100_complicated_ensemble
 }
 
-LabelsManipulatorType = Callable[[List[ndarray]], int]
+networks: NetworksType = dict(_cifar10_networks, **_cifar100_networks)
 
 
-def labels_manipulation(manipulator: Callable[[ndarray], int]) -> LabelsManipulatorType:
+def _labels_manipulation(manipulator: Callable[[ndarray], int]) -> LabelsManipulatorType:
     def labels_manipulator(labels: List[ndarray]) -> int:
         n_classes = 0
         for labels_array in labels:
@@ -64,17 +73,17 @@ def labels_manipulation(manipulator: Callable[[ndarray], int]) -> LabelsManipula
 
 subnetworks: Dict[str, LabelsManipulatorType] = {
     'cifar10_complicated_ensemble_submodel1':
-        labels_manipulation(cifar10_complicated_ensemble_submodel1_labels_manipulation),
+        _labels_manipulation(cifar10_complicated_ensemble_submodel1_labels_manipulation),
     'cifar10_complicated_ensemble_submodel2':
-        labels_manipulation(cifar10_complicated_ensemble_submodel2_labels_manipulation),
+        _labels_manipulation(cifar10_complicated_ensemble_submodel2_labels_manipulation),
     'cifar10_complicated_ensemble_submodel3':
-        labels_manipulation(cifar10_complicated_ensemble_submodel3_labels_manipulation),
+        _labels_manipulation(cifar10_complicated_ensemble_submodel3_labels_manipulation),
     'cifar10_complicated_ensemble_submodel4':
-        labels_manipulation(cifar10_complicated_ensemble_submodel4_labels_manipulation),
+        _labels_manipulation(cifar10_complicated_ensemble_submodel4_labels_manipulation),
     'cifar10_complicated_ensemble_submodel5':
-        labels_manipulation(cifar10_complicated_ensemble_submodel5_labels_manipulation),
+        _labels_manipulation(cifar10_complicated_ensemble_submodel5_labels_manipulation),
     'cifar10_pyramid_ensemble_submodel_weak1':
-        labels_manipulation(cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation),
+        _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation),
     'cifar10_pyramid_ensemble_submodel_weak2':
-        labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation),
+        _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation),
 }
