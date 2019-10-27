@@ -32,6 +32,7 @@ from networks.cifar100.cifar100_model3 import cifar100_model3
 
 NetworksType = Dict[str, Callable[[any, any, any, Union[None, str]], Union[Model, Sequential]]]
 LabelsManipulatorType = Callable[[List[ndarray]], int]
+SubnetworksType = Dict[str, LabelsManipulatorType]
 
 _cifar10_networks: NetworksType = {
     'cifar10_model1': cifar10_model1,
@@ -71,7 +72,7 @@ def _labels_manipulation(manipulator: Callable[[ndarray], int]) -> LabelsManipul
     return labels_manipulator
 
 
-subnetworks: Dict[str, LabelsManipulatorType] = {
+_cifar10_subnetworks: SubnetworksType = {
     'cifar10_complicated_ensemble_submodel1':
         _labels_manipulation(cifar10_complicated_ensemble_submodel1_labels_manipulation),
     'cifar10_complicated_ensemble_submodel2':
@@ -85,5 +86,7 @@ subnetworks: Dict[str, LabelsManipulatorType] = {
     'cifar10_pyramid_ensemble_submodel_weak1':
         _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation),
     'cifar10_pyramid_ensemble_submodel_weak2':
-        _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation),
+        _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation)
 }
+
+subnetworks: SubnetworksType = dict(_cifar10_subnetworks)
