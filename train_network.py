@@ -56,10 +56,7 @@ def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
     :param test: the test data.
     :return: the preprocessed data.
     """
-    if dataset == 'cifar10' or dataset == 'cifar100':
-        train, test = train / 255, test / 255
-    else:
-        raise ValueError("Unrecognised dataset!")
+    train, test = train / 255, test / 255
 
     return train, test
 
