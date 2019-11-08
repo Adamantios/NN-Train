@@ -8,7 +8,7 @@ from networks.tools import create_inputs, load_weights
 
 
 def cifar100_pyramid_ensemble_submodel_weak2(input_shape=None, input_tensor=None, n_classes=None,
-                                            weights_path: Union[None, str] = None) -> Model:
+                                             weights_path: Union[None, str] = None) -> Model:
     """
     Defines a cifar100 network.
 
@@ -21,13 +21,13 @@ def cifar100_pyramid_ensemble_submodel_weak2(input_shape=None, input_tensor=None
     inputs = create_inputs(input_shape, input_tensor)
 
     # Convolutions.
-    x1 = Conv2D(128, (3, 3), padding='same', activation='elu', name='conv1')(inputs)
-    x1 = Conv2D(128, (3, 3), padding='same', activation='elu', name='conv2')(x1)
-    x1 = MaxPooling2D(pool_size=(2, 2), name='pool')(x1)
+    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='conv1')(inputs)
+    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='conv2')(x)
+    x = MaxPooling2D(pool_size=(2, 2), name='pool')(x)
 
     # Add top layers.
-    x1 = Flatten(name='flatten')(x1)
-    outputs = Dense(n_classes, name='output')(x1)
+    x = Flatten(name='flatten')(x)
+    outputs = Dense(n_classes, activation='softmax', name='softmax_outputs')(x)
 
     # Create Submodel 2.
     model = Model(inputs, outputs, name='cifar100_pyramid_ensemble_submodel_weak2')

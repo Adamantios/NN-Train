@@ -21,18 +21,18 @@ def cifar10_complicated_ensemble_submodel1(input_shape=None, input_tensor=None, 
     inputs = create_inputs(input_shape, input_tensor)
 
     # Block1.
-    x1 = Conv2D(32, (3, 3), padding='same', activation='elu', name='block1_conv1')(inputs)
-    x1 = Conv2D(32, (3, 3), padding='same', activation='elu', name='block1_conv2')(x1)
-    x1 = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x1)
+    x = Conv2D(32, (3, 3), padding='same', activation='elu', name='block1_conv1')(inputs)
+    x = Conv2D(32, (3, 3), padding='same', activation='elu', name='block1_conv2')(x)
+    x = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x)
 
     # Block2
-    x1 = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv1')(x1)
-    x1 = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv2')(x1)
-    x1 = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x1)
+    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv1')(x)
+    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv2')(x)
+    x = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x)
 
     # Add top layers.
-    x1 = Flatten(name='flatten')(x1)
-    outputs = Dense(n_classes, name='output')(x1)
+    x = Flatten(name='flatten')(x)
+    outputs = Dense(n_classes, activation='softmax', name='softmax_outputs')(x)
 
     # Create Submodel 1.
     model = Model(inputs, outputs, name='cifar10_complicated_ensemble_submodel1')

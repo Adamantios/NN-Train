@@ -18,7 +18,9 @@ def cifar10_complicated_ensemble_submodel4(input_shape=None, input_tensor=None, 
     :param weights_path: a path to a trained custom network's weights.
     :return: Keras functional API Model.
     """
-    return cifar10_complicated_ensemble_submodel1(input_shape, input_tensor, n_classes, weights_path)
+    model = cifar10_complicated_ensemble_submodel1(input_shape, input_tensor, n_classes, weights_path)
+    model._name = 'cifar10_complicated_ensemble_submodel4'
+    return model
 
 
 def cifar10_complicated_ensemble_submodel4_labels_manipulation(labels_array: ndarray) -> int:
