@@ -105,7 +105,7 @@ def init_callbacks() -> []:
                                      save_best_only=True, mode='max')
         callbacks.append(checkpoint)
 
-    if lr_decay > 0:
+    if lr_decay > 0 or lr_patience > 0:
         learning_rate_reduction = ReduceLROnPlateau(monitor='val_categorical_accuracy', patience=lr_patience,
                                                     verbose=verbosity, factor=lr_decay, min_lr=lr_min)
         callbacks.append(learning_rate_reduction)
