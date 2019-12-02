@@ -28,21 +28,31 @@ def cifar100_student_strong(n_classes: int, input_shape=None, input_tensor=None,
                kernel_regularizer=l2(weight_decay))(inputs)
 
     x = BatchNormalization(name='block1_batch-norm1')(x)
-    x = Conv2D(32, (3, 3), padding='same', activation='elu', name='block1_conv2',
+    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2',
                kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization(name='block1_batch-norm2')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x)
     x = Dropout(0.2, name='block1_dropout')(x)
 
     # Block2.
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv1',
+    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv1',
                kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization(name='block2_batch-norm1')(x)
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv2',
+    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv2',
                kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization(name='block2_batch-norm2')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x)
     x = Dropout(0.3, name='block2_dropout')(x)
+
+    # Block3.
+    x = Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv1',
+               kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization(name='block3_batch-norm1')(x)
+    x = Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv2',
+               kernel_regularizer=l2(weight_decay))(x)
+    x = BatchNormalization(name='block3_batch-norm2')(x)
+    x = MaxPooling2D(pool_size=(2, 2), name='block3_pool')(x)
+    x = Dropout(0.4, name='block3_dropout')(x)
 
     # Add top layers.
     x = Flatten()(x)

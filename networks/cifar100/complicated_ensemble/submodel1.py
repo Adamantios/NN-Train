@@ -21,13 +21,13 @@ def cifar100_complicated_ensemble_submodel1(input_shape=None, input_tensor=None,
     inputs = create_inputs(input_shape, input_tensor)
 
     # Block1.
-    x = Conv2D(32, (3, 3), padding='same', activation='elu', name='block1_conv1')(inputs)
-    x = Conv2D(32, (3, 3), padding='same', activation='elu', name='block1_conv2')(x)
+    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1')(inputs)
+    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x)
 
     # Block2
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv1')(x)
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv2')(x)
+    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv1')(x)
+    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv2')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x)
 
     # Block3

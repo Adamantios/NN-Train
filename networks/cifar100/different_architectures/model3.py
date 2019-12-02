@@ -1,4 +1,3 @@
-from os.path import isfile
 from typing import Union
 
 from tensorflow.python.keras import Sequential
@@ -32,23 +31,23 @@ def cifar100_model3(n_classes: int, input_shape=None, input_tensor=None,
 
     # Block1
     if input_tensor is None:
-        first_conv = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1', input_shape=input_shape)
+        first_conv = Conv2D(128, (3, 3), padding='same', activation='elu', name='block1_conv1', input_shape=input_shape)
 
     else:
-        first_conv = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1')
+        first_conv = Conv2D(128, (3, 3), padding='same', activation='elu', name='block1_conv1')
 
     model.add(first_conv)
-    model.add(Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2'))
+    model.add(Conv2D(128, (3, 3), padding='same', activation='elu', name='block1_conv2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block1_pool'))
 
     # Block2
-    model.add(Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv1'))
-    model.add(Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv2'))
+    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block2_conv1'))
+    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block2_conv2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block2_pool'))
 
     # Block3
-    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv1'))
-    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv2'))
+    model.add(Conv2D(512, (2, 2), padding='same', activation='elu', name='block3_conv1'))
+    model.add(Conv2D(512, (2, 2), padding='same', activation='elu', name='block3_conv2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block3_pool'))
 
     # Add top layers.

@@ -36,36 +36,36 @@ def cifar100_model1(n_classes: int, input_shape=None, input_tensor=None,
 
     # Block1
     if input_tensor is None:
-        first_conv = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1',
+        first_conv = Conv2D(128, (3, 3), padding='same', activation='elu', name='block1_conv1',
                             kernel_regularizer=l2(weight_decay), input_shape=input_shape)
 
     else:
-        first_conv = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1',
+        first_conv = Conv2D(128, (3, 3), padding='same', activation='elu', name='block1_conv1',
                             kernel_regularizer=l2(weight_decay))
 
     model.add(first_conv)
     model.add(BatchNormalization(name='block1_batch-norm1'))
-    model.add(Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2',
+    model.add(Conv2D(128, (3, 3), padding='same', activation='elu', name='block1_conv2',
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block1_batch-norm2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block1_pool'))
     model.add(Dropout(0.2, name='block1_dropout'))
 
     # Block2
-    model.add(Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv1',
+    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block2_conv1',
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block2_batch-norm1'))
-    model.add(Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv2',
+    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block2_conv2',
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block2_batch-norm2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block2_pool'))
     model.add(Dropout(0.3, name='block2_dropout'))
 
     # Block3
-    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv1',
+    model.add(Conv2D(512, (3, 3), padding='same', activation='elu', name='block3_conv1',
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block3_batch-norm1'))
-    model.add(Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv2',
+    model.add(Conv2D(512, (3, 3), padding='same', activation='elu', name='block3_conv2',
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block3_batch-norm2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block3_pool'))
