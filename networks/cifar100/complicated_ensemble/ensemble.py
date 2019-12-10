@@ -46,13 +46,13 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Submodel 2.
     # Block1.
-    x2 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel2_block1_conv1')(inputs)
-    x2 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel2_block1_conv2')(x2)
+    x2 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel2_block1_conv1')(inputs)
+    x2 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel2_block1_conv2')(x2)
     x2 = MaxPooling2D(pool_size=(2, 2), name='submodel2_block1_pool')(x2)
 
     # Block2
-    x2 = Conv2D(512, (3, 3), padding='same', activation='elu', name='submodel2_block2_conv1')(x2)
-    x2 = Conv2D(512, (3, 3), padding='same', activation='elu', name='submodel2_block2_conv2')(x2)
+    x2 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel2_block2_conv1')(x2)
+    x2 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel2_block2_conv2')(x2)
     x2 = MaxPooling2D(pool_size=(2, 2), name='submodel2_block2_pool')(x2)
 
     # Add Submodel 2 top layers.
@@ -101,18 +101,18 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
 
     # Submodel 4.
     # Block1.
-    x4 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel4_block1_conv1')(inputs)
-    x4 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel4_block1_conv2')(x4)
+    x4 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel4_block1_conv1')(inputs)
+    x4 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel4_block1_conv2')(x4)
     x4 = MaxPooling2D(pool_size=(2, 2), name='submodel4_block1_pool')(x4)
 
     # Block2
-    x4 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel4_block2_conv1')(x4)
-    x4 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel4_block2_conv2')(x4)
+    x4 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel4_block2_conv1')(x4)
+    x4 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel4_block2_conv2')(x4)
     x4 = MaxPooling2D(pool_size=(2, 2), name='submodel4_block2_pool')(x4)
 
     # Block3
-    x4 = Conv2D(512, (3, 3), padding='same', activation='elu', name='submodel4_block3_conv1')(x4)
-    x4 = Conv2D(512, (3, 3), padding='same', activation='elu', name='submodel4_block3_conv2')(x4)
+    x4 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel4_block3_conv1')(x4)
+    x4 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel4_block3_conv2')(x4)
     x4 = MaxPooling2D(pool_size=(2, 2), name='submodel4_block3_pool')(x4)
 
     # Add Submodel 4 top layers.
