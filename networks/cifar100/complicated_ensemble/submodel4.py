@@ -3,7 +3,8 @@ from typing import Union
 from numpy.core.multiarray import ndarray
 from numpy.ma import logical_or
 from tensorflow.python.keras import Model
-from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, BatchNormalization
+from tensorflow.python.keras.regularizers import l2
 
 from networks.tools import create_inputs, load_weights
 
@@ -22,19 +23,22 @@ def cifar100_complicated_ensemble_submodel4(input_shape=None, input_tensor=None,
     inputs = create_inputs(input_shape, input_tensor)
 
     # Block1.
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1')(inputs)
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2')(x)
-    x = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x)
+    x1 = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1', kernel_regularizer=l2(weight_decay))(inputs)
+    x1 = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x1)
+    x1 = BatchNormalization(name='block1_batch-norm')(x1)
+    x1 = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x1)
 
     # Block2
-    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv1')(x)
-    x = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv2')(x)
-    x = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x)
+    x1 = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv1', kernel_regularizer=l2(weight_decay))(x1)
+    x1 = Conv2D(128, (3, 3), padding='same', activation='elu', name='block2_conv2', kernel_regularizer=l2(weight_decay))(x1)
+    x1 = BatchNormalization(name='block2_batch-norm')(x1)
+    x1 = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x1)
 
     # Block3
-    x = Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv1')(x)
-    x = Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv2')(x)
-    x = MaxPooling2D(pool_size=(2, 2), name='block3_pool')(x)
+    x1 = Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv1', kernel_regularizer=l2(weight_decay))(x1)
+    x1 = Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv2', kernel_regularizer=l2(weight_decay))(x1)
+    x1 = BatchNormalization(name='block3_batch-norm')(x1)
+    x1 = MaxPooling2D(pool_size=(2, 2), name='block3_pool')(x1)
 
     # Add top layers.
     x = Flatten(name='flatten')(x)
