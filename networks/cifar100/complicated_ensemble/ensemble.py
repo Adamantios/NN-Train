@@ -55,13 +55,13 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
     # Block1.
     x2 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel2_block1_conv1', kernel_regularizer=l2(weight_decay))(inputs)
     x2 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel2_block1_conv2', kernel_regularizer=l2(weight_decay))(x2)
-    x2 = BatchNormalization(name='submodel2_block1_batch-norm')(x1)
+    x2 = BatchNormalization(name='submodel2_block1_batch-norm')(x2)
     x2 = MaxPooling2D(pool_size=(2, 2), name='submodel2_block1_pool')(x2)
 
     # Block2
     x2 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel2_block2_conv1', kernel_regularizer=l2(weight_decay))(x2)
     x2 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel2_block2_conv2', kernel_regularizer=l2(weight_decay))(x2)
-    x2 = BatchNormalization(name='submodel2_block2_batch-norm')(x1)
+    x2 = BatchNormalization(name='submodel2_block2_batch-norm')(x2)
     x2 = MaxPooling2D(pool_size=(2, 2), name='submodel2_block2_pool')(x2)
 
     # Add Submodel 2 top layers.
@@ -81,13 +81,13 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
     # Block1.
     x3 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel3_block1_conv1', kernel_regularizer=l2(weight_decay))(inputs)
     x3 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel3_block1_conv2', kernel_regularizer=l2(weight_decay))(x3)
-    x3 = BatchNormalization(name='submodel3_block1_batch-norm')(x1)
+    x3 = BatchNormalization(name='submodel3_block1_batch-norm')(x3)
     x3 = MaxPooling2D(pool_size=(2, 2), name='submodel3_block1_pool')(x3)
 
     # Block2
     x3 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel3_block2_conv1', kernel_regularizer=l2(weight_decay))(x3)
     x3 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel3_block2_conv2', kernel_regularizer=l2(weight_decay))(x3)
-    x3 = BatchNormalization(name='submodel3_block2_batch-norm')(x1)
+    x3 = BatchNormalization(name='submodel3_block2_batch-norm')(x3)
     x3 = MaxPooling2D(pool_size=(2, 2), name='submodel3_block2_pool')(x3)
 
     # Add Submodel 3 top layers.
@@ -114,19 +114,19 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
     # Block1.
     x4 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel4_block1_conv1', kernel_regularizer=l2(weight_decay))(inputs)
     x4 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel4_block1_conv2', kernel_regularizer=l2(weight_decay))(x4)
-    x4 = BatchNormalization(name='submodel4_block1_batch-norm')(x1)
+    x4 = BatchNormalization(name='submodel4_block1_batch-norm')(x4)
     x4 = MaxPooling2D(pool_size=(2, 2), name='submodel4_block1_pool')(x4)
 
     # Block2
     x4 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel4_block2_conv1', kernel_regularizer=l2(weight_decay))(x4)
     x4 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel4_block2_conv2', kernel_regularizer=l2(weight_decay))(x4)
-    x4 = BatchNormalization(name='submodel4_block2_batch-norm')(x1)
+    x4 = BatchNormalization(name='submodel4_block2_batch-norm')(x4)
     x4 = MaxPooling2D(pool_size=(2, 2), name='submodel4_block2_pool')(x4)
 
     # Block3
     x4 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel4_block3_conv1', kernel_regularizer=l2(weight_decay))(x4)
     x4 = Conv2D(256, (3, 3), padding='same', activation='elu', name='submodel4_block3_conv2', kernel_regularizer=l2(weight_decay))(x4)
-    x4 = BatchNormalization(name='submodel4_block3_batch-norm')(x1)
+    x4 = BatchNormalization(name='submodel4_block3_batch-norm')(x4)
     x4 = MaxPooling2D(pool_size=(2, 2), name='submodel4_block3_pool')(x4)
 
     # Add Submodel 4 top layers.
@@ -138,19 +138,19 @@ def cifar100_complicated_ensemble(input_shape=None, input_tensor=None, n_classes
     # Block1.
     x5 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel5_block1_conv1', kernel_regularizer=l2(weight_decay))(inputs)
     x5 = Conv2D(64, (3, 3), padding='same', activation='elu', name='submodel5_block1_conv2', kernel_regularizer=l2(weight_decay))(x5)
-    x5 = BatchNormalization(name='submodel5_block1_batch-norm')(x1)
+    x5 = BatchNormalization(name='submodel5_block1_batch-norm')(x5)
     x5 = MaxPooling2D(pool_size=(2, 2), name='submodel5_block1_pool')(x5)
 
     # Block2
     x5 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel5_block2_conv1', kernel_regularizer=l2(weight_decay))(x5)
     x5 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel5_block2_conv2', kernel_regularizer=l2(weight_decay))(x5)
-    x5 = BatchNormalization(name='submodel5_block2_batch-norm')(x1)
+    x5 = BatchNormalization(name='submodel5_block2_batch-norm')(x5)
     x5 = MaxPooling2D(pool_size=(2, 2), name='submodel5_block2_pool')(x5)
 
     # Block3
     x5 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel5_block3_conv1', kernel_regularizer=l2(weight_decay))(x5)
     x5 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel5_block3_conv2', kernel_regularizer=l2(weight_decay))(x5)
-    x5 = BatchNormalization(name='submodel5_block3_batch-norm')(x1)
+    x5 = BatchNormalization(name='submodel5_block3_batch-norm')(x5)
     x5 = MaxPooling2D(pool_size=(2, 2), name='submodel5_block3_pool')(x5)
 
     # Add Submodel 5 top layers.
