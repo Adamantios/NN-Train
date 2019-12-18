@@ -22,6 +22,9 @@ def cifar100_complicated_ensemble_submodel4(input_shape=None, input_tensor=None,
     """
     inputs = create_inputs(input_shape, input_tensor)
 
+    # Define a weight decay for the regularisation.
+    weight_decay = 1e-4
+
     # Block1.
     x1 = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1', kernel_regularizer=l2(weight_decay))(inputs)
     x1 = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2', kernel_regularizer=l2(weight_decay))(x1)
