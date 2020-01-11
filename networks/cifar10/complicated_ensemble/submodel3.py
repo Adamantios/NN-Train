@@ -3,7 +3,8 @@ from typing import Union
 from numpy.core.multiarray import ndarray
 from numpy.ma import logical_or
 from tensorflow.python.keras import Model
-from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
+from tensorflow.python.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout, BatchNormalization
+from tensorflow.python.keras.regularizers import l2
 
 from networks.tools import create_inputs, load_weights
 
@@ -21,16 +22,20 @@ def cifar10_complicated_ensemble_submodel3(input_shape=None, input_tensor=None, 
     """
     inputs = create_inputs(input_shape, input_tensor)
 
-    # Block1.
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv1')(inputs)
-    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='block1_conv2')(x)
-    x = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x)
+    # Define a weight decay for the regularisation.
+    weight_decay = 1e-4
+
+    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='conv1', kernel_regularizer=l2(weight_decay))(inputs)
+    x = BatchNormalization(name='batch-norm')(x)
+    x = Conv2D(64, (3, 3), padding='same', activation='elu', name='conv2', kernel_regularizer=l2(weight_decay))(x)
+    x = MaxPooling2D(pool_size=(2, 2), name='pool')(x)
+    x = Dropout(0.3, name='dropout')(x)
 
     # Add top layers.
     x = Flatten(name='flatten')(x)
     outputs = Dense(n_classes, activation='softmax', name='softmax_outputs')(x)
 
-    # Create Submodel 1.
+    # Create Submodel 3.
     model = Model(inputs, outputs, name='cifar10_complicated_ensemble_submodel3')
     # Load weights, if they exist.
     load_weights(weights_path, model)
