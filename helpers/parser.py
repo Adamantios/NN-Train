@@ -5,7 +5,7 @@ from networks.available_networks import networks
 # ----------------------------------- DEFAULT ARGUMENTS ------------------------------------------
 
 DATASET = 'cifar10'
-DATASET_CHOICES = 'cifar10', 'cifar100', 'svhn_cropped', 'fashion_mnist'
+DATASET_CHOICES = 'cifar10', 'cifar100', 'svhn_cropped', 'fashion_mnist', 'citrus_leaves', 'caltech101'
 NETWORK = 'cifar10_model1'
 NETWORK_CHOICES = networks.keys()
 START_POINT = ''
