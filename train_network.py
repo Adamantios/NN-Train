@@ -4,8 +4,10 @@ from itertools import zip_longest
 from os.path import join
 from typing import Union, Tuple
 
+from ipython_genutils.py3compat import xrange
 from numpy import ndarray, empty
-from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping
+from scipy.misc import imresize
+from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping, History
 from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.python.keras.saving import save_model
@@ -57,6 +59,9 @@ def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
     :return: the preprocessed data.
     """
     train, test = train / 255, test / 255
+
+    # Reshape images.
+    train, test = reshape_images(new_x, new_y, train, test)
 
     return train, test
 
@@ -155,7 +160,7 @@ def save_results() -> None:
         print('Network has been saved as {}.\n'.format(model_filepath))
 
     # Save history.
-    if save_history:
+    if save_history and epochs:
         # Create path for the file.
         create_path(hist_filepath)
         # Save history.
@@ -181,11 +186,75 @@ def manipulate_labels(initial_n_classes: int) -> int:
     return initial_n_classes
 
 
+def reshape_images(x: int, y: int, train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
+    """
+    Reshape image to [x, y].
+    !Warning! Works only for colored images.
+
+    :param x: the new width.
+    :param y: the new height.
+    :param train: the train images.
+    :param test: the test images.
+    :return: the new reshaped images.
+    """
+    if x and y:
+        new_shape = (x, y, 3)
+        new_x_train = empty(shape=(train.shape[0],) + new_shape)
+        new_x_test = empty(shape=(test.shape[0],) + new_shape)
+
+        for idx in xrange(train.shape[0]):
+            new_x_train[idx] = imresize(train[idx], new_shape)
+
+        for idx in xrange(test.shape[0]):
+            new_x_test[idx] = imresize(test[idx], new_shape)
+
+        return new_x_train, new_x_test
+    else:
+        return train, test
+
+
+def train_evaluate() -> Union[History, None]:
+    """
+    Train and evaluate model.
+
+    :return: tf.keras.callbacks.History object of the training.
+    """
+    hist = None
+
+    if epochs:
+        if augment_data:
+            # Generate batches of tensor image data with real-time data augmentation.
+            datagen = ImageDataGenerator(rotation_range=10, zoom_range=0.1, width_shift_range=0.1,
+                                         height_shift_range=0.1)
+            datagen.fit(x_train)
+            # Fit network.
+            hist = model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
+                                       steps_per_epoch=x_train.shape[0] // batch_size,
+                                       validation_data=(x_test, y_test),
+                                       callbacks=callbacks_list)
+        else:
+            hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs,
+                             validation_data=(x_test, y_test),
+                             callbacks=callbacks_list)
+
+        # Plot results.
+        save_folder = out_folder if save_plots else None
+
+        if hist.history:
+            plot_results(history.history, save_folder)
+            # Evaluate results.
+            evaluate_results()
+
+    return hist
+
+
 if __name__ == '__main__':
     # Get arguments.
     args = create_training_parser().parse_args()
     dataset = args.dataset
     model_name = args.network
+    new_x = args.new_x
+    new_y = args.new_y
     start_point = args.start_point
     save_weights = not args.omit_weights
     save_network = not args.omit_model
@@ -240,24 +309,7 @@ if __name__ == '__main__':
     # Initialize callbacks list.
     callbacks_list = init_callbacks()
 
-    if augment_data:
-        # Generate batches of tensor image data with real-time data augmentation.
-        datagen = ImageDataGenerator(rotation_range=10, zoom_range=0.1, width_shift_range=0.1, height_shift_range=0.1)
-        datagen.fit(x_train)
-        # Fit network.
-        history = model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
-                                      steps_per_epoch=x_train.shape[0] // batch_size, validation_data=(x_test, y_test),
-                                      callbacks=callbacks_list)
-    else:
-        history = model.fit(x_train, y_train, epochs=epochs, validation_data=(x_test, y_test), callbacks=callbacks_list)
-
-    # Plot results.
-    save_folder = out_folder if save_plots else None
-
-    if history.history:
-        plot_results(history.history, save_folder)
-        # Evaluate results.
-        evaluate_results()
-
+    # Train and evaluate model.
+    history = train_evaluate()
     # Save results.
     save_results()

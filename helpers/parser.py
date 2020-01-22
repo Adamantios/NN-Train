@@ -5,9 +5,11 @@ from networks.available_networks import networks
 # ----------------------------------- DEFAULT ARGUMENTS ------------------------------------------
 
 DATASET = 'cifar10'
-DATASET_CHOICES = 'cifar10', 'cifar100', 'svhn_cropped', 'fashion_mnist', 'citrus_leaves', 'caltech101'
+DATASET_CHOICES = 'cifar10', 'cifar100', 'svhn_cropped', 'fashion_mnist', 'mnist'
 NETWORK = 'cifar10_model1'
 NETWORK_CHOICES = networks.keys()
+NEW_X = 0
+NEW_Y = 0
 START_POINT = ''
 SAVE_WEIGHTS = True
 SAVE_MODEL = True
@@ -53,6 +55,12 @@ def create_training_parser() -> ArgumentParser:
                         help='The dataset to be used (default %(default)s).')
     parser.add_argument('-n', '--network', type=str.lower, default=NETWORK, required=False, choices=NETWORK_CHOICES,
                         help='The network model to be used (default %(default)s).')
+    parser.add_argument('-nx', '--new_x', type=int, default=NEW_X, required=False,
+                        help='The new width for the images. '
+                             'If you do not want to resize them, set new_x or new_y to 0 (default %(default)s).')
+    parser.add_argument('-ny', '--new_y', type=int, default=NEW_Y, required=False,
+                        help='The new height for the images.'
+                             'If you do not want to resize them, set new_x or new_y to 0 (default %(default)s).')
     parser.add_argument('-sp', '--start_point', type=str, required=False, default=START_POINT,
                         help='Filepath containing existing weights to initialize the model.')
     parser.add_argument('-ow', '--omit_weights', default=not SAVE_WEIGHTS, required=False, action='store_true',
