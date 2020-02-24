@@ -1,4 +1,3 @@
-from os.path import isfile
 from typing import Union
 
 from tensorflow.python.keras import Sequential

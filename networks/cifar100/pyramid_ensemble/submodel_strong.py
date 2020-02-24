@@ -7,7 +7,7 @@ from networks.tools import create_inputs, load_weights
 
 
 def cifar100_pyramid_ensemble_submodel_strong(input_shape=None, input_tensor=None, n_classes=None,
-                                             weights_path: Union[None, str] = None) -> Model:
+                                              weights_path: Union[None, str] = None) -> Model:
     """
     Defines a cifar100 network.
 

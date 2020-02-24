@@ -8,7 +8,7 @@ from networks.tools import load_weights, create_inputs
 
 
 def cifar100_student_strong(n_classes: int, input_shape=None, input_tensor=None,
-                           weights_path: Union[None, str] = None) -> Model:
+                            weights_path: Union[None, str] = None) -> Model:
     """
     Defines a cifar100 strong student network.
 

@@ -7,10 +7,10 @@ from tensorflow.python.keras.regularizers import l2
 from networks.tools import load_weights, create_inputs
 
 
-def citrus_model3(n_classes: int, input_shape=None, input_tensor=None,
-                  weights_path: Union[None, str] = None) -> Sequential:
+def omniglot_model3(n_classes: int, input_shape=None, input_tensor=None,
+                    weights_path: Union[None, str] = None) -> Sequential:
     """
-    Defines a citrus network.
+    Defines a omniglot network.
 
     :param n_classes: the number of classes.
     We use this parameter even though we know its value,
@@ -26,14 +26,14 @@ def citrus_model3(n_classes: int, input_shape=None, input_tensor=None,
     weight_decay = 1e-5
 
     # Block1.
-    x = Conv2D(16, (2, 2), padding='same', activation='prelu', name='block1_conv1',
+    x = Conv2D(32, (2, 2), padding='same', activation='prelu', name='block1_conv1',
                kernel_regularizer=l2(weight_decay))(inputs)
     x = BatchNormalization(name='block1_batch-norm')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x)
     x = Dropout(0.1, name='block1_dropout')(x)
 
     # Block2
-    x = Conv2D(32, (3, 3), padding='same', activation='prelu', name='block2_conv1',
+    x = Conv2D(64, (3, 3), padding='same', activation='prelu', name='block2_conv1',
                kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization(name='block2_batch-norm')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x)
@@ -44,7 +44,7 @@ def citrus_model3(n_classes: int, input_shape=None, input_tensor=None,
     outputs = Dense(n_classes, activation='softmax', name='softmax_outputs')(x)
 
     # Create Submodel 1.
-    model = Model(inputs, outputs, name='citrus_model3')
+    model = Model(inputs, outputs, name='omniglot_model3')
     # Load weights, if they exist.
     load_weights(weights_path, model)
 

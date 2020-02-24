@@ -25,28 +25,6 @@ from networks.caltech101.pyramid_ensemble.submodel_weak2 import caltech_pyramid_
     caltech_pyramid_ensemble_submodel_weak2_labels_manipulation
 from networks.caltech101.students.strong import caltech_student_strong
 from networks.caltech101.students.weak import caltech_student_weak
-from networks.citrus.complicated_ensemble.ensemble import citrus_complicated_ensemble
-from networks.citrus.complicated_ensemble.submodel1 import citrus_complicated_ensemble_submodel1, \
-    citrus_complicated_ensemble_submodel1_labels_manipulation
-from networks.citrus.complicated_ensemble.submodel2 import citrus_complicated_ensemble_submodel2, \
-    citrus_complicated_ensemble_submodel2_labels_manipulation
-from networks.citrus.complicated_ensemble.submodel3 import citrus_complicated_ensemble_submodel3, \
-    citrus_complicated_ensemble_submodel3_labels_manipulation
-from networks.citrus.complicated_ensemble.submodel4 import citrus_complicated_ensemble_submodel4, \
-    citrus_complicated_ensemble_submodel4_labels_manipulation
-from networks.citrus.complicated_ensemble.submodel5 import citrus_complicated_ensemble_submodel5, \
-    citrus_complicated_ensemble_submodel5_labels_manipulation
-from networks.citrus.different_architectures.model1 import citrus_model1
-from networks.citrus.different_architectures.model2 import citrus_model2
-from networks.citrus.different_architectures.model3 import citrus_model3
-from networks.citrus.pyramid_ensemble.ensemble import citrus_pyramid_ensemble
-from networks.citrus.pyramid_ensemble.submodel_strong import citrus_pyramid_ensemble_submodel_strong
-from networks.citrus.pyramid_ensemble.submodel_weak1 import citrus_pyramid_ensemble_submodel_weak1, \
-    citrus_pyramid_ensemble_submodel_weak1_labels_manipulation
-from networks.citrus.pyramid_ensemble.submodel_weak2 import citrus_pyramid_ensemble_submodel_weak2, \
-    citrus_pyramid_ensemble_submodel_weak2_labels_manipulation
-from networks.citrus.students.strong import citrus_student_strong
-from networks.citrus.students.weak import citrus_student_weak
 from networks.cifar10.complicated_ensemble.ensemble import cifar10_complicated_ensemble
 from networks.cifar10.complicated_ensemble.submodel1 import cifar10_complicated_ensemble_submodel1, \
     cifar10_complicated_ensemble_submodel1_labels_manipulation
@@ -91,6 +69,28 @@ from networks.cifar100.pyramid_ensemble.submodel_weak2 import cifar100_pyramid_e
     cifar100_pyramid_ensemble_submodel_weak2_labels_manipulation
 from networks.cifar100.students.strong import cifar100_student_strong
 from networks.cifar100.students.weak import cifar100_student_weak
+from networks.omniglot.complicated_ensemble.ensemble import omniglot_complicated_ensemble
+from networks.omniglot.complicated_ensemble.submodel1 import omniglot_complicated_ensemble_submodel1, \
+    omniglot_complicated_ensemble_submodel1_labels_manipulation
+from networks.omniglot.complicated_ensemble.submodel2 import omniglot_complicated_ensemble_submodel2, \
+    omniglot_complicated_ensemble_submodel2_labels_manipulation
+from networks.omniglot.complicated_ensemble.submodel3 import omniglot_complicated_ensemble_submodel3, \
+    omniglot_complicated_ensemble_submodel3_labels_manipulation
+from networks.omniglot.complicated_ensemble.submodel4 import omniglot_complicated_ensemble_submodel4, \
+    omniglot_complicated_ensemble_submodel4_labels_manipulation
+from networks.omniglot.complicated_ensemble.submodel5 import omniglot_complicated_ensemble_submodel5, \
+    omniglot_complicated_ensemble_submodel5_labels_manipulation
+from networks.omniglot.different_architectures.model1 import omniglot_model1
+from networks.omniglot.different_architectures.model2 import omniglot_model2
+from networks.omniglot.different_architectures.model3 import omniglot_model3
+from networks.omniglot.pyramid_ensemble.ensemble import omniglot_pyramid_ensemble
+from networks.omniglot.pyramid_ensemble.submodel_strong import omniglot_pyramid_ensemble_submodel_strong
+from networks.omniglot.pyramid_ensemble.submodel_weak1 import omniglot_pyramid_ensemble_submodel_weak1, \
+    omniglot_pyramid_ensemble_submodel_weak1_labels_manipulation
+from networks.omniglot.pyramid_ensemble.submodel_weak2 import omniglot_pyramid_ensemble_submodel_weak2, \
+    omniglot_pyramid_ensemble_submodel_weak2_labels_manipulation
+from networks.omniglot.students.strong import omniglot_student_strong
+from networks.omniglot.students.weak import omniglot_student_weak
 from networks.svhn.complicated_ensemble.ensemble import svhn_complicated_ensemble
 from networks.svhn.complicated_ensemble.submodel1 import svhn_complicated_ensemble_submodel1, \
     svhn_complicated_ensemble_submodel1_labels_manipulation
@@ -201,22 +201,22 @@ _caltech_networks: NetworksType = {
     'caltech_student_weak': caltech_student_weak
 }
 
-_citrus_networks: NetworksType = {
-    'citrus_model1': citrus_model1,
-    'citrus_model2': citrus_model2,
-    'citrus_model3': citrus_model3,
-    'citrus_complicated_ensemble': citrus_complicated_ensemble,
-    'citrus_complicated_ensemble_submodel1': citrus_complicated_ensemble_submodel1,
-    'citrus_complicated_ensemble_submodel2': citrus_complicated_ensemble_submodel2,
-    'citrus_complicated_ensemble_submodel3': citrus_complicated_ensemble_submodel3,
-    'citrus_complicated_ensemble_submodel4': citrus_complicated_ensemble_submodel4,
-    'citrus_complicated_ensemble_submodel5': citrus_complicated_ensemble_submodel5,
-    'citrus_pyramid_ensemble': citrus_pyramid_ensemble,
-    'citrus_pyramid_ensemble_submodel_strong': citrus_pyramid_ensemble_submodel_strong,
-    'citrus_pyramid_ensemble_submodel_weak1': citrus_pyramid_ensemble_submodel_weak1,
-    'citrus_pyramid_ensemble_submodel_weak2': citrus_pyramid_ensemble_submodel_weak2,
-    'citrus_student_strong': citrus_student_strong,
-    'citrus_student_weak': citrus_student_weak
+_omniglot_networks: NetworksType = {
+    'omniglot_model1': omniglot_model1,
+    'omniglot_model2': omniglot_model2,
+    'omniglot_model3': omniglot_model3,
+    'omniglot_complicated_ensemble': omniglot_complicated_ensemble,
+    'omniglot_complicated_ensemble_submodel1': omniglot_complicated_ensemble_submodel1,
+    'omniglot_complicated_ensemble_submodel2': omniglot_complicated_ensemble_submodel2,
+    'omniglot_complicated_ensemble_submodel3': omniglot_complicated_ensemble_submodel3,
+    'omniglot_complicated_ensemble_submodel4': omniglot_complicated_ensemble_submodel4,
+    'omniglot_complicated_ensemble_submodel5': omniglot_complicated_ensemble_submodel5,
+    'omniglot_pyramid_ensemble': omniglot_pyramid_ensemble,
+    'omniglot_pyramid_ensemble_submodel_strong': omniglot_pyramid_ensemble_submodel_strong,
+    'omniglot_pyramid_ensemble_submodel_weak1': omniglot_pyramid_ensemble_submodel_weak1,
+    'omniglot_pyramid_ensemble_submodel_weak2': omniglot_pyramid_ensemble_submodel_weak2,
+    'omniglot_student_strong': omniglot_student_strong,
+    'omniglot_student_weak': omniglot_student_weak
 }
 
 _cifar10_subnetworks: SubnetworksType = {
@@ -287,29 +287,29 @@ _caltech_subnetworks: SubnetworksType = {
         _labels_manipulation(caltech_pyramid_ensemble_submodel_weak2_labels_manipulation)
 }
 
-_citrus_subnetworks: SubnetworksType = {
-    'citrus_complicated_ensemble_submodel1':
-        _labels_manipulation(citrus_complicated_ensemble_submodel1_labels_manipulation),
-    'citrus_complicated_ensemble_submodel2':
-        _labels_manipulation(citrus_complicated_ensemble_submodel2_labels_manipulation),
-    'citrus_complicated_ensemble_submodel3':
-        _labels_manipulation(citrus_complicated_ensemble_submodel3_labels_manipulation),
-    'citrus_complicated_ensemble_submodel4':
-        _labels_manipulation(citrus_complicated_ensemble_submodel4_labels_manipulation),
-    'citrus_complicated_ensemble_submodel5':
-        _labels_manipulation(citrus_complicated_ensemble_submodel5_labels_manipulation),
-    'citrus_pyramid_ensemble_submodel_weak1':
-        _labels_manipulation(citrus_pyramid_ensemble_submodel_weak1_labels_manipulation),
-    'citrus_pyramid_ensemble_submodel_weak2':
-        _labels_manipulation(citrus_pyramid_ensemble_submodel_weak2_labels_manipulation)
+_omniglot_subnetworks: SubnetworksType = {
+    'omniglot_complicated_ensemble_submodel1':
+        _labels_manipulation(omniglot_complicated_ensemble_submodel1_labels_manipulation),
+    'omniglot_complicated_ensemble_submodel2':
+        _labels_manipulation(omniglot_complicated_ensemble_submodel2_labels_manipulation),
+    'omniglot_complicated_ensemble_submodel3':
+        _labels_manipulation(omniglot_complicated_ensemble_submodel3_labels_manipulation),
+    'omniglot_complicated_ensemble_submodel4':
+        _labels_manipulation(omniglot_complicated_ensemble_submodel4_labels_manipulation),
+    'omniglot_complicated_ensemble_submodel5':
+        _labels_manipulation(omniglot_complicated_ensemble_submodel5_labels_manipulation),
+    'omniglot_pyramid_ensemble_submodel_weak1':
+        _labels_manipulation(omniglot_pyramid_ensemble_submodel_weak1_labels_manipulation),
+    'omniglot_pyramid_ensemble_submodel_weak2':
+        _labels_manipulation(omniglot_pyramid_ensemble_submodel_weak2_labels_manipulation)
 }
 
 networks: NetworksType = dict(_cifar10_networks, **_cifar100_networks)
 networks.update(_svhn_networks)
 networks.update(_caltech_networks)
-networks.update(_citrus_networks)
+networks.update(_omniglot_networks)
 
 subnetworks: SubnetworksType = dict(_cifar10_subnetworks, **_cifar100_subnetworks)
 subnetworks.update(_svhn_subnetworks)
 subnetworks.update(_caltech_subnetworks)
-subnetworks.update(_citrus_subnetworks)
+subnetworks.update(_omniglot_subnetworks)
