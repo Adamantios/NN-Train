@@ -30,7 +30,7 @@ def cifar100_complicated_ensemble_submodel5_labels_manipulation(labels_array: nd
     :param labels_array: the labels to manipulate.
     :return: the number of classes predicted by the model.
     """
-    labels_array[logical_or(labels_array < 80, labels_array > 99)] = -1
+    labels_array[labels_array < 80] = -1
 
     for i, label_i in enumerate(range(80, 100)):
         labels_array[labels_array == label_i] = i
