@@ -25,10 +25,14 @@ def cifar10_baseline_ensemble(input_shape=None, input_tensor=None, n_classes=Non
     submodel_2 = cifar10_model1(n_classes, input_shape, input_tensor, weights_path)
     submodel_3 = cifar10_model1(n_classes, input_shape, input_tensor, weights_path)
 
+    submodel_1._name = 'cifar10_baseline_ensemble_submodel1'
+    submodel_2._name = 'cifar10_baseline_ensemble_submodel2'
+    submodel_3._name = 'cifar10_baseline_ensemble_submodel3'
+
     # Get their outputs.
-    outputs_submodel1 = submodel_1.output
-    outputs_submodel2 = submodel_2.output
-    outputs_submodel3 = submodel_3.output
+    outputs_submodel1 = submodel_1(inputs)
+    outputs_submodel2 = submodel_2(inputs)
+    outputs_submodel3 = submodel_3(inputs)
 
     # Average classes.
     outputs = Average(name='averaged_predictions')([outputs_submodel1, outputs_submodel2, outputs_submodel3])
