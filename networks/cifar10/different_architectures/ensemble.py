@@ -23,9 +23,9 @@ def cifar10_architectures_diverse_ensemble(input_shape=None, input_tensor=None, 
     inputs = create_inputs(input_shape, input_tensor)
 
     # Generate Submodels.
-    submodel_1 = cifar10_model1(input_shape, input_tensor, n_classes, weights_path)
-    submodel_2 = cifar10_model2(input_shape, input_tensor, n_classes, weights_path)
-    submodel_3 = cifar10_model3(input_shape, input_tensor, n_classes, weights_path)
+    submodel_1 = cifar10_model1(n_classes, input_shape, input_tensor, weights_path)
+    submodel_2 = cifar10_model2(n_classes, input_shape, input_tensor, weights_path)
+    submodel_3 = cifar10_model3(n_classes, input_shape, input_tensor, weights_path)
 
     # Get their outputs.
     outputs_submodel1 = submodel_1.output
