@@ -25,6 +25,7 @@ from networks.caltech101.pyramid_ensemble.submodel_weak2 import caltech_pyramid_
     caltech_pyramid_ensemble_submodel_weak2_labels_manipulation
 from networks.caltech101.students.strong import caltech_student_strong
 from networks.caltech101.students.weak import caltech_student_weak
+from networks.cifar10.baseline_ensemble.ensemble import cifar10_baseline_ensemble
 from networks.cifar10.complicated_ensemble.ensemble import cifar10_complicated_ensemble
 from networks.cifar10.complicated_ensemble.submodel1 import cifar10_complicated_ensemble_submodel1, \
     cifar10_complicated_ensemble_submodel1_labels_manipulation
@@ -36,6 +37,7 @@ from networks.cifar10.complicated_ensemble.submodel4 import cifar10_complicated_
     cifar10_complicated_ensemble_submodel4_labels_manipulation
 from networks.cifar10.complicated_ensemble.submodel5 import cifar10_complicated_ensemble_submodel5, \
     cifar10_complicated_ensemble_submodel5_labels_manipulation
+from networks.cifar10.different_architectures.ensemble import cifar10_architectures_diverse_ensemble
 from networks.cifar10.different_architectures.model1 import cifar10_model1
 from networks.cifar10.different_architectures.model2 import cifar10_model2
 from networks.cifar10.different_architectures.model3 import cifar10_model3
@@ -45,8 +47,10 @@ from networks.cifar10.pyramid_ensemble.submodel_weak1 import \
     cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation, cifar10_pyramid_ensemble_submodel_weak1
 from networks.cifar10.pyramid_ensemble.submodel_weak2 import \
     cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation, cifar10_pyramid_ensemble_submodel_weak2
+from networks.cifar10.strong_ensemble.ensemble import cifar10_strong_ensemble
 from networks.cifar10.students.strong import cifar10_student_strong
 from networks.cifar10.students.weak import cifar10_student_weak
+from networks.cifar10.weak_ensemble.ensemble import cifar10_weak_ensemble
 from networks.cifar100.complicated_ensemble.ensemble import cifar100_complicated_ensemble
 from networks.cifar100.complicated_ensemble.submodel1 import cifar100_complicated_ensemble_submodel1, \
     cifar100_complicated_ensemble_submodel1_labels_manipulation
@@ -144,7 +148,11 @@ _cifar10_networks: NetworksType = {
     'cifar10_pyramid_ensemble_submodel_weak1': cifar10_pyramid_ensemble_submodel_weak1,
     'cifar10_pyramid_ensemble_submodel_weak2': cifar10_pyramid_ensemble_submodel_weak2,
     'cifar10_student_strong': cifar10_student_strong,
-    'cifar10_student_weak': cifar10_student_weak
+    'cifar10_student_weak': cifar10_student_weak,
+    'cifar10_baseline_ensemble': cifar10_baseline_ensemble,
+    'cifar10_architectures_diverse_ensemble': cifar10_architectures_diverse_ensemble,
+    'cifar10_strong_ensemble': cifar10_strong_ensemble,
+    'cifar10_weak_ensemble': cifar10_weak_ensemble
 }
 
 _cifar100_networks: NetworksType = {
