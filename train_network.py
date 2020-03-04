@@ -241,7 +241,7 @@ def train_evaluate() -> Union[History, None]:
         save_folder = out_folder if save_plots else None
 
         if hist.history:
-            plot_results(history.history, save_folder)
+            plot_results(hist.history, save_folder)
             # Evaluate results.
             evaluate_results()
 
