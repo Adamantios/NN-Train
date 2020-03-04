@@ -40,6 +40,12 @@ def svhn_complicated_ensemble_v2(input_shape=None, input_tensor=None, n_classes=
     outputs_submodel4 = submodel4(inputs)
     outputs_submodel5 = submodel5(inputs)
 
+    # Correct submodel 2 - 5 outputs.
+    outputs_submodel2 = Crop(1, 1, None)(outputs_submodel2)
+    outputs_submodel3 = Crop(1, 1, None)(outputs_submodel3)
+    outputs_submodel4 = Crop(1, 1, None)(outputs_submodel4)
+    outputs_submodel5 = Crop(1, 1, None)(outputs_submodel5)
+
     # Create the complicated outputs.
     # Class 0.
     outputs_list.append(Average(name='class_0')(
