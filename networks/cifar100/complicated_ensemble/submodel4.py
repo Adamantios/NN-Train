@@ -71,8 +71,8 @@ def cifar100_complicated_ensemble_submodel4_labels_manipulation(labels_array: nd
     labels_array[logical_or(labels_array < 60, labels_array > 79)] = -1
 
     for i, label_i in enumerate(range(60, 80)):
-        labels_array[labels_array == label_i] = i
+        labels_array[labels_array == label_i] = i + 1
 
-    labels_array[labels_array == -1] = 20
+    labels_array[labels_array == -1] = 0
 
     return 21

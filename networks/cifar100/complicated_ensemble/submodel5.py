@@ -1,7 +1,6 @@
 from typing import Union
 
 from numpy.core.multiarray import ndarray
-from numpy.ma import logical_or
 from tensorflow.python.keras import Model
 
 from networks.cifar100.complicated_ensemble.submodel1 import cifar100_complicated_ensemble_submodel1
@@ -33,8 +32,8 @@ def cifar100_complicated_ensemble_submodel5_labels_manipulation(labels_array: nd
     labels_array[labels_array < 80] = -1
 
     for i, label_i in enumerate(range(80, 100)):
-        labels_array[labels_array == label_i] = i
+        labels_array[labels_array == label_i] = i + 1
 
-    labels_array[labels_array == -1] = 20
+    labels_array[labels_array == -1] = 0
 
     return 21
