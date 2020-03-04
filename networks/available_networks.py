@@ -37,6 +37,17 @@ from networks.cifar10.complicated_ensemble.submodel4 import cifar10_complicated_
     cifar10_complicated_ensemble_submodel4_labels_manipulation
 from networks.cifar10.complicated_ensemble.submodel5 import cifar10_complicated_ensemble_submodel5, \
     cifar10_complicated_ensemble_submodel5_labels_manipulation
+from networks.cifar10.complicated_ensemble_v2.ensemble import cifar10_complicated_ensemble_v2
+from networks.cifar10.complicated_ensemble_v2.submodel1 import cifar10_complicated_ensemble_v2_submodel1, \
+    cifar10_complicated_ensemble_v2_submodel1_labels_manipulation
+from networks.cifar10.complicated_ensemble_v2.submodel2 import cifar10_complicated_ensemble_v2_submodel2, \
+    cifar10_complicated_ensemble_v2_submodel2_labels_manipulation
+from networks.cifar10.complicated_ensemble_v2.submodel3 import cifar10_complicated_ensemble_v2_submodel3, \
+    cifar10_complicated_ensemble_v2_submodel3_labels_manipulation
+from networks.cifar10.complicated_ensemble_v2.submodel4 import cifar10_complicated_ensemble_v2_submodel4, \
+    cifar10_complicated_ensemble_v2_submodel4_labels_manipulation
+from networks.cifar10.complicated_ensemble_v2.submodel5 import cifar10_complicated_ensemble_v2_submodel5, \
+    cifar10_complicated_ensemble_v2_submodel5_labels_manipulation
 from networks.cifar10.different_architectures.ensemble import cifar10_architectures_diverse_ensemble
 from networks.cifar10.different_architectures.model1 import cifar10_model1
 from networks.cifar10.different_architectures.model2 import cifar10_model2
@@ -51,6 +62,7 @@ from networks.cifar10.strong_ensemble.ensemble import cifar10_strong_ensemble
 from networks.cifar10.students.strong import cifar10_student_strong
 from networks.cifar10.students.weak import cifar10_student_weak
 from networks.cifar10.weak_ensemble.ensemble import cifar10_weak_ensemble
+from networks.cifar100.baseline_ensemble.ensemble import cifar100_baseline_ensemble
 from networks.cifar100.complicated_ensemble.ensemble import cifar100_complicated_ensemble
 from networks.cifar100.complicated_ensemble.submodel1 import cifar100_complicated_ensemble_submodel1, \
     cifar100_complicated_ensemble_submodel1_labels_manipulation
@@ -62,6 +74,18 @@ from networks.cifar100.complicated_ensemble.submodel4 import cifar100_complicate
     cifar100_complicated_ensemble_submodel4_labels_manipulation
 from networks.cifar100.complicated_ensemble.submodel5 import cifar100_complicated_ensemble_submodel5, \
     cifar100_complicated_ensemble_submodel5_labels_manipulation
+from networks.cifar100.complicated_ensemble_v2.ensemble import cifar100_complicated_ensemble_v2
+from networks.cifar100.complicated_ensemble_v2.submodel1 import cifar100_complicated_ensemble_v2_submodel1, \
+    cifar100_complicated_ensemble_v2_submodel1_labels_manipulation
+from networks.cifar100.complicated_ensemble_v2.submodel2 import cifar100_complicated_ensemble_v2_submodel2, \
+    cifar100_complicated_ensemble_v2_submodel2_labels_manipulation
+from networks.cifar100.complicated_ensemble_v2.submodel3 import cifar100_complicated_ensemble_v2_submodel3, \
+    cifar100_complicated_ensemble_v2_submodel3_labels_manipulation
+from networks.cifar100.complicated_ensemble_v2.submodel4 import cifar100_complicated_ensemble_v2_submodel4, \
+    cifar100_complicated_ensemble_v2_submodel4_labels_manipulation
+from networks.cifar100.complicated_ensemble_v2.submodel5 import cifar100_complicated_ensemble_v2_submodel5, \
+    cifar100_complicated_ensemble_v2_submodel5_labels_manipulation
+from networks.cifar100.different_architectures.ensemble import cifar100_architectures_diverse_ensemble
 from networks.cifar100.different_architectures.model1 import cifar100_model1
 from networks.cifar100.different_architectures.model2 import cifar100_model2
 from networks.cifar100.different_architectures.model3 import cifar100_model3
@@ -95,6 +119,7 @@ from networks.omniglot.pyramid_ensemble.submodel_weak2 import omniglot_pyramid_e
     omniglot_pyramid_ensemble_submodel_weak2_labels_manipulation
 from networks.omniglot.students.strong import omniglot_student_strong
 from networks.omniglot.students.weak import omniglot_student_weak
+from networks.svhn.baseline_ensemble.ensemble import svhn_baseline_ensemble
 from networks.svhn.complicated_ensemble.ensemble import svhn_complicated_ensemble
 from networks.svhn.complicated_ensemble.submodel1 import svhn_complicated_ensemble_submodel1, \
     svhn_complicated_ensemble_submodel1_labels_manipulation
@@ -106,6 +131,18 @@ from networks.svhn.complicated_ensemble.submodel4 import svhn_complicated_ensemb
     svhn_complicated_ensemble_submodel4_labels_manipulation
 from networks.svhn.complicated_ensemble.submodel5 import svhn_complicated_ensemble_submodel5, \
     svhn_complicated_ensemble_submodel5_labels_manipulation
+from networks.svhn.complicated_ensemble_v2.ensemble import svhn_complicated_ensemble_v2
+from networks.svhn.complicated_ensemble_v2.submodel1 import svhn_complicated_ensemble_v2_submodel1, \
+    svhn_complicated_ensemble_v2_submodel1_labels_manipulation
+from networks.svhn.complicated_ensemble_v2.submodel2 import svhn_complicated_ensemble_v2_submodel2, \
+    svhn_complicated_ensemble_v2_submodel2_labels_manipulation
+from networks.svhn.complicated_ensemble_v2.submodel3 import svhn_complicated_ensemble_v2_submodel3, \
+    svhn_complicated_ensemble_v2_submodel3_labels_manipulation
+from networks.svhn.complicated_ensemble_v2.submodel4 import svhn_complicated_ensemble_v2_submodel4, \
+    svhn_complicated_ensemble_v2_submodel4_labels_manipulation
+from networks.svhn.complicated_ensemble_v2.submodel5 import svhn_complicated_ensemble_v2_submodel5, \
+    svhn_complicated_ensemble_v2_submodel5_labels_manipulation
+from networks.svhn.different_architectures.ensemble import svhn_architectures_diverse_ensemble
 from networks.svhn.different_architectures.model1 import svhn_model1
 from networks.svhn.different_architectures.model2 import svhn_model2
 from networks.svhn.different_architectures.model3 import svhn_model3
@@ -152,7 +189,13 @@ _cifar10_networks: NetworksType = {
     'cifar10_baseline_ensemble': cifar10_baseline_ensemble,
     'cifar10_architectures_diverse_ensemble': cifar10_architectures_diverse_ensemble,
     'cifar10_strong_ensemble': cifar10_strong_ensemble,
-    'cifar10_weak_ensemble': cifar10_weak_ensemble
+    'cifar10_weak_ensemble': cifar10_weak_ensemble,
+    'cifar10_complicated_ensemble_v2': cifar10_complicated_ensemble_v2,
+    'cifar10_complicated_ensemble_v2_submodel1': cifar10_complicated_ensemble_v2_submodel1,
+    'cifar10_complicated_ensemble_v2_submodel2': cifar10_complicated_ensemble_v2_submodel2,
+    'cifar10_complicated_ensemble_v2_submodel3': cifar10_complicated_ensemble_v2_submodel3,
+    'cifar10_complicated_ensemble_v2_submodel4': cifar10_complicated_ensemble_v2_submodel4,
+    'cifar10_complicated_ensemble_v2_submodel5': cifar10_complicated_ensemble_v2_submodel5
 }
 
 _cifar100_networks: NetworksType = {
@@ -170,7 +213,15 @@ _cifar100_networks: NetworksType = {
     'cifar100_pyramid_ensemble_submodel_weak1': cifar100_pyramid_ensemble_submodel_weak1,
     'cifar100_pyramid_ensemble_submodel_weak2': cifar100_pyramid_ensemble_submodel_weak2,
     'cifar100_student_strong': cifar100_student_strong,
-    'cifar100_student_weak': cifar100_student_weak
+    'cifar100_student_weak': cifar100_student_weak,
+    'cifar100_baseline_ensemble': cifar100_baseline_ensemble,
+    'cifar100_architectures_diverse_ensemble': cifar100_architectures_diverse_ensemble,
+    'cifar100_complicated_ensemble_v2': cifar100_complicated_ensemble_v2,
+    'cifar100_complicated_ensemble_v2_submodel1': cifar100_complicated_ensemble_v2_submodel1,
+    'cifar100_complicated_ensemble_v2_submodel2': cifar100_complicated_ensemble_v2_submodel2,
+    'cifar100_complicated_ensemble_v2_submodel3': cifar100_complicated_ensemble_v2_submodel3,
+    'cifar100_complicated_ensemble_v2_submodel4': cifar100_complicated_ensemble_v2_submodel4,
+    'cifar100_complicated_ensemble_v2_submodel5': cifar100_complicated_ensemble_v2_submodel5
 }
 
 _svhn_networks: NetworksType = {
@@ -188,7 +239,15 @@ _svhn_networks: NetworksType = {
     'svhn_pyramid_ensemble_submodel_weak1': svhn_pyramid_ensemble_submodel_weak1,
     'svhn_pyramid_ensemble_submodel_weak2': svhn_pyramid_ensemble_submodel_weak2,
     'svhn_student_strong': svhn_student_strong,
-    'svhn_student_weak': svhn_student_weak
+    'svhn_student_weak': svhn_student_weak,
+    'svhn_baseline_ensemble': svhn_baseline_ensemble,
+    'svhn_architectures_diverse_ensemble': svhn_architectures_diverse_ensemble,
+    'svhn_complicated_ensemble_v2': svhn_complicated_ensemble_v2,
+    'svhn_complicated_ensemble_v2_submodel1': svhn_complicated_ensemble_v2_submodel1,
+    'svhn_complicated_ensemble_v2_submodel2': svhn_complicated_ensemble_v2_submodel2,
+    'svhn_complicated_ensemble_v2_submodel3': svhn_complicated_ensemble_v2_submodel3,
+    'svhn_complicated_ensemble_v2_submodel4': svhn_complicated_ensemble_v2_submodel4,
+    'svhn_complicated_ensemble_v2_submodel5': svhn_complicated_ensemble_v2_submodel5
 }
 
 _caltech_networks: NetworksType = {
@@ -241,7 +300,17 @@ _cifar10_subnetworks: SubnetworksType = {
     'cifar10_pyramid_ensemble_submodel_weak1':
         _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak1_labels_manipulation),
     'cifar10_pyramid_ensemble_submodel_weak2':
-        _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation)
+        _labels_manipulation(cifar10_pyramid_ensemble_submodel_weak2_labels_manipulation),
+    'cifar10_complicated_ensemble_v2_submodel1':
+        _labels_manipulation(cifar10_complicated_ensemble_v2_submodel1_labels_manipulation),
+    'cifar10_complicated_ensemble_v2_submodel2':
+        _labels_manipulation(cifar10_complicated_ensemble_v2_submodel2_labels_manipulation),
+    'cifar10_complicated_ensemble_v2_submodel3':
+        _labels_manipulation(cifar10_complicated_ensemble_v2_submodel3_labels_manipulation),
+    'cifar10_complicated_ensemble_v2_submodel4':
+        _labels_manipulation(cifar10_complicated_ensemble_v2_submodel4_labels_manipulation),
+    'cifar10_complicated_ensemble_v2_submodel5':
+        _labels_manipulation(cifar10_complicated_ensemble_v2_submodel5_labels_manipulation)
 }
 
 _cifar100_subnetworks: SubnetworksType = {
@@ -258,7 +327,17 @@ _cifar100_subnetworks: SubnetworksType = {
     'cifar100_pyramid_ensemble_submodel_weak1':
         _labels_manipulation(cifar100_pyramid_ensemble_submodel_weak1_labels_manipulation),
     'cifar100_pyramid_ensemble_submodel_weak2':
-        _labels_manipulation(cifar100_pyramid_ensemble_submodel_weak2_labels_manipulation)
+        _labels_manipulation(cifar100_pyramid_ensemble_submodel_weak2_labels_manipulation),
+    'cifar100_complicated_ensemble_v2_submodel1':
+        _labels_manipulation(cifar100_complicated_ensemble_v2_submodel1_labels_manipulation),
+    'cifar100_complicated_ensemble_v2_submodel2':
+        _labels_manipulation(cifar100_complicated_ensemble_v2_submodel2_labels_manipulation),
+    'cifar100_complicated_ensemble_v2_submodel3':
+        _labels_manipulation(cifar100_complicated_ensemble_v2_submodel3_labels_manipulation),
+    'cifar100_complicated_ensemble_v2_submodel4':
+        _labels_manipulation(cifar100_complicated_ensemble_v2_submodel4_labels_manipulation),
+    'cifar100_complicated_ensemble_v2_submodel5':
+        _labels_manipulation(cifar100_complicated_ensemble_v2_submodel5_labels_manipulation)
 }
 
 _svhn_subnetworks: SubnetworksType = {
@@ -275,7 +354,17 @@ _svhn_subnetworks: SubnetworksType = {
     'svhn_pyramid_ensemble_submodel_weak1':
         _labels_manipulation(svhn_pyramid_ensemble_submodel_weak1_labels_manipulation),
     'svhn_pyramid_ensemble_submodel_weak2':
-        _labels_manipulation(svhn_pyramid_ensemble_submodel_weak2_labels_manipulation)
+        _labels_manipulation(svhn_pyramid_ensemble_submodel_weak2_labels_manipulation),
+    'svhn_complicated_ensemble_v2_submodel1':
+        _labels_manipulation(svhn_complicated_ensemble_v2_submodel1_labels_manipulation),
+    'svhn_complicated_ensemble_v2_submodel2':
+        _labels_manipulation(svhn_complicated_ensemble_v2_submodel2_labels_manipulation),
+    'svhn_complicated_ensemble_v2_submodel3':
+        _labels_manipulation(svhn_complicated_ensemble_v2_submodel3_labels_manipulation),
+    'svhn_complicated_ensemble_v2_submodel4':
+        _labels_manipulation(svhn_complicated_ensemble_v2_submodel4_labels_manipulation),
+    'svhn_complicated_ensemble_v2_submodel5':
+        _labels_manipulation(svhn_complicated_ensemble_v2_submodel5_labels_manipulation)
 }
 
 _caltech_subnetworks: SubnetworksType = {
