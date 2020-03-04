@@ -17,7 +17,9 @@ def svhn_complicated_ensemble_v2_submodel1(input_shape=None, input_tensor=None, 
     :param weights_path: a path to a trained custom network's weights.
     :return: Keras functional API Model.
     """
-    return svhn_complicated_ensemble_submodel1(input_shape, input_tensor, n_classes, weights_path)
+    model = svhn_complicated_ensemble_submodel1(input_shape, input_tensor, n_classes, weights_path)
+    model._name = 'svhn_complicated_ensemble_v2_submodel1'
+    return model
 
 
 def svhn_complicated_ensemble_v2_submodel1_labels_manipulation(labels_array: ndarray) -> int:
