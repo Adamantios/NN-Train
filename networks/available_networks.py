@@ -95,8 +95,10 @@ from networks.cifar100.pyramid_ensemble.submodel_weak1 import cifar100_pyramid_e
     cifar100_pyramid_ensemble_submodel_weak1_labels_manipulation
 from networks.cifar100.pyramid_ensemble.submodel_weak2 import cifar100_pyramid_ensemble_submodel_weak2, \
     cifar100_pyramid_ensemble_submodel_weak2_labels_manipulation
+from networks.cifar100.strong_ensemble.ensemble import cifar100_strong_ensemble
 from networks.cifar100.students.strong import cifar100_student_strong
 from networks.cifar100.students.weak import cifar100_student_weak
+from networks.cifar100.weak_ensemble.ensemble import cifar100_weak_ensemble
 from networks.omniglot.complicated_ensemble.ensemble import omniglot_complicated_ensemble
 from networks.omniglot.complicated_ensemble.submodel1 import omniglot_complicated_ensemble_submodel1, \
     omniglot_complicated_ensemble_submodel1_labels_manipulation
@@ -216,6 +218,8 @@ _cifar100_networks: NetworksType = {
     'cifar100_student_weak': cifar100_student_weak,
     'cifar100_baseline_ensemble': cifar100_baseline_ensemble,
     'cifar100_architectures_diverse_ensemble': cifar100_architectures_diverse_ensemble,
+    'cifar100_strong_ensemble': cifar100_strong_ensemble,
+    'cifar100_weak_ensemble': cifar100_weak_ensemble,
     'cifar100_complicated_ensemble_v2': cifar100_complicated_ensemble_v2,
     'cifar100_complicated_ensemble_v2_submodel1': cifar100_complicated_ensemble_v2_submodel1,
     'cifar100_complicated_ensemble_v2_submodel2': cifar100_complicated_ensemble_v2_submodel2,
