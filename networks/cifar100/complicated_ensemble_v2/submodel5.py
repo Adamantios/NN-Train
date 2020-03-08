@@ -34,11 +34,11 @@ def cifar100_complicated_ensemble_v2_submodel5_labels_manipulation(labels_array:
     labels_array[logical_and(labels_array > 9, labels_array < 50)] = -1
     labels_array[logical_and(labels_array > 59, labels_array < 80)] = -1
 
-    for i, in range(0, 10):
+    for i in range(0, 10):
         labels_array[labels_array == i] = i + 1
-        labels_array[labels_array == i + 50] = i + 51
-        labels_array[labels_array == i + 80] = i + 81
-        labels_array[labels_array == i + 90] = i + 91
+        labels_array[labels_array == i + 50] = i + 11
+        labels_array[labels_array == i + 80] = i + 21
+        labels_array[labels_array == i + 90] = i + 31
 
     labels_array[labels_array == -1] = 0
 
