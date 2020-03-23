@@ -27,6 +27,11 @@ from networks.caltech101.students.strong import caltech_student_strong
 from networks.caltech101.students.weak import caltech_student_weak
 from networks.cifar10.baseline_ensemble.ensemble import cifar10_baseline_ensemble
 from networks.cifar10.baseline_ensemble_v2.ensemble import cifar10_baseline_ensemble_v2
+from networks.cifar10.baseline_ensemble_v2.submodel1 import cifar10_baseline_ensemble_v2_submodel1
+from networks.cifar10.baseline_ensemble_v2.submodel2 import cifar10_baseline_ensemble_v2_submodel2
+from networks.cifar10.baseline_ensemble_v2.submodel3 import cifar10_baseline_ensemble_v2_submodel3
+from networks.cifar10.baseline_ensemble_v2.submodel4 import cifar10_baseline_ensemble_v2_submodel4
+from networks.cifar10.baseline_ensemble_v2.submodel5 import cifar10_baseline_ensemble_v2_submodel5
 from networks.cifar10.complicated_ensemble.ensemble import cifar10_complicated_ensemble
 from networks.cifar10.complicated_ensemble.submodel1 import cifar10_complicated_ensemble_submodel1, \
     cifar10_complicated_ensemble_submodel1_labels_manipulation
@@ -65,6 +70,11 @@ from networks.cifar10.students.weak import cifar10_student_weak
 from networks.cifar10.weak_ensemble.ensemble import cifar10_weak_ensemble
 from networks.cifar100.baseline_ensemble.ensemble import cifar100_baseline_ensemble
 from networks.cifar100.baseline_ensemble_v2.ensemble import cifar100_baseline_ensemble_v2
+from networks.cifar100.baseline_ensemble_v2.submodel1 import cifar100_baseline_ensemble_v2_submodel1
+from networks.cifar100.baseline_ensemble_v2.submodel2 import cifar100_baseline_ensemble_v2_submodel2
+from networks.cifar100.baseline_ensemble_v2.submodel3 import cifar100_baseline_ensemble_v2_submodel3
+from networks.cifar100.baseline_ensemble_v2.submodel4 import cifar100_baseline_ensemble_v2_submodel4
+from networks.cifar100.baseline_ensemble_v2.submodel5 import cifar100_baseline_ensemble_v2_submodel5
 from networks.cifar100.complicated_ensemble.ensemble import cifar100_complicated_ensemble
 from networks.cifar100.complicated_ensemble.submodel1 import cifar100_complicated_ensemble_submodel1, \
     cifar100_complicated_ensemble_submodel1_labels_manipulation
@@ -201,11 +211,11 @@ _cifar10_networks: NetworksType = {
     'cifar10_complicated_ensemble_v2_submodel4': cifar10_complicated_ensemble_v2_submodel4,
     'cifar10_complicated_ensemble_v2_submodel5': cifar10_complicated_ensemble_v2_submodel5,
     'cifar10_baseline_ensemble_v2': cifar10_baseline_ensemble_v2,
-    'cifar10_baseline_ensemble_v2_submodel1': cifar10_complicated_ensemble_v2_submodel1,
-    'cifar10_baseline_ensemble_v2_submodel2': cifar10_complicated_ensemble_v2_submodel2,
-    'cifar10_baseline_ensemble_v2_submodel3': cifar10_complicated_ensemble_v2_submodel3,
-    'cifar10_baseline_ensemble_v2_submodel4': cifar10_complicated_ensemble_v2_submodel4,
-    'cifar10_baseline_ensemble_v2_submodel5': cifar10_complicated_ensemble_v2_submodel5
+    'cifar10_baseline_ensemble_v2_submodel1': cifar10_baseline_ensemble_v2_submodel1,
+    'cifar10_baseline_ensemble_v2_submodel2': cifar10_baseline_ensemble_v2_submodel2,
+    'cifar10_baseline_ensemble_v2_submodel3': cifar10_baseline_ensemble_v2_submodel3,
+    'cifar10_baseline_ensemble_v2_submodel4': cifar10_baseline_ensemble_v2_submodel4,
+    'cifar10_baseline_ensemble_v2_submodel5': cifar10_baseline_ensemble_v2_submodel5
 }
 
 _cifar100_networks: NetworksType = {
@@ -235,11 +245,11 @@ _cifar100_networks: NetworksType = {
     'cifar100_complicated_ensemble_v2_submodel4': cifar100_complicated_ensemble_v2_submodel4,
     'cifar100_complicated_ensemble_v2_submodel5': cifar100_complicated_ensemble_v2_submodel5,
     'cifar100_baseline_ensemble_v2': cifar100_baseline_ensemble_v2,
-    'cifar100_baseline_ensemble_v2_submodel1': cifar100_complicated_ensemble_v2_submodel1,
-    'cifar100_baseline_ensemble_v2_submodel2': cifar100_complicated_ensemble_v2_submodel2,
-    'cifar100_baseline_ensemble_v2_submodel3': cifar100_complicated_ensemble_v2_submodel3,
-    'cifar100_baseline_ensemble_v2_submodel4': cifar100_complicated_ensemble_v2_submodel4,
-    'cifar100_baseline_ensemble_v2_submodel5': cifar100_complicated_ensemble_v2_submodel5
+    'cifar100_baseline_ensemble_v2_submodel1': cifar100_baseline_ensemble_v2_submodel1,
+    'cifar100_baseline_ensemble_v2_submodel2': cifar100_baseline_ensemble_v2_submodel2,
+    'cifar100_baseline_ensemble_v2_submodel3': cifar100_baseline_ensemble_v2_submodel3,
+    'cifar100_baseline_ensemble_v2_submodel4': cifar100_baseline_ensemble_v2_submodel4,
+    'cifar100_baseline_ensemble_v2_submodel5': cifar100_baseline_ensemble_v2_submodel5
 }
 
 _svhn_networks: NetworksType = {
