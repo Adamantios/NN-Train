@@ -1,3 +1,8 @@
+from numpy.random import seed as np_seed
+from random import seed as rn_seed
+from os import environ
+from tensorflow.python import set_random_seed, ConfigProto, Session, get_default_graph
+from tensorflow.python.keras.backend import set_session
 import logging
 import pickle
 from itertools import zip_longest
@@ -18,6 +23,17 @@ from tensorflow_datasets import load, as_numpy
 from helpers.parser import create_training_parser
 from helpers.utils import create_path, plot_results, create_model
 from networks.available_networks import subnetworks
+
+
+def make_results_reproducible() -> None:
+    """ Makes results reproducible. """
+    environ['PYTHONHASHSEED'] = '0'
+    np_seed(0)
+    rn_seed(0)
+    session_conf = ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
+    set_random_seed(0)
+    sess = Session(graph=get_default_graph(), config=session_conf)
+    set_session(sess)
 
 
 def load_data() -> Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], int]:
@@ -282,6 +298,8 @@ if __name__ == '__main__':
     evaluation_batch_size = args.evaluation_batch_size
     epochs = args.epochs
     verbosity = args.verbosity
+
+    make_results_reproducible()
 
     if clip_norm is not None and clip_value is not None:
         raise ValueError('You cannot set both clip norm and clip value.')
