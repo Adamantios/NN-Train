@@ -2,7 +2,8 @@ from os.path import isfile
 from typing import Union
 
 from tensorflow.python.keras import Model, Input
-from tensorflow.python.keras.engine import Layer, InputSpec, InputLayer
+from tensorflow.python.keras.engine.base_layer import Layer, InputSpec
+from tensorflow.python.keras.engine.input_layer import InputLayer
 
 
 class Crop(Layer):

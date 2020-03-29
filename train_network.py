@@ -6,12 +6,13 @@ from typing import Union, Tuple
 
 from ipython_genutils.py3compat import xrange
 from numpy import ndarray, empty
-from scipy.misc import imresize
+from skimage.transform import resize
 from tensorflow.python.keras.callbacks import ModelCheckpoint, ReduceLROnPlateau, EarlyStopping, History
-from tensorflow.python.keras.optimizers import rmsprop, adam, adamax, adadelta, adagrad, sgd
+from tensorflow.keras.optimizers import RMSprop, Adam, Adamax, Adadelta, Adagrad, SGD
 from tensorflow.python.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.python.keras.saving import save_model
-from tensorflow.python.keras.utils import to_categorical
+from tensorflow.python.keras.models import save_model
+from tensorflow.python.keras.utils.np_utils import to_categorical
+
 from tensorflow_datasets import load, as_numpy
 
 from helpers.parser import create_training_parser
@@ -66,24 +67,24 @@ def preprocess_data(train: ndarray, test: ndarray) -> Tuple[ndarray, ndarray]:
     return train, test
 
 
-def initialize_optimizer() -> Union[adam, rmsprop, sgd, adagrad, adadelta, adamax]:
+def initialize_optimizer() -> Union[Adam, RMSprop, SGD, Adagrad, Adadelta, Adamax]:
     """
     Initializes an optimizer based on the user's choices.
 
     :return: the optimizer.
     """
     if optimizer_name == 'adam':
-        opt = adam(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
+        opt = Adam(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
     elif optimizer_name == 'rmsprop':
-        opt = rmsprop(lr=learning_rate, rho=rho, decay=decay)
+        opt = RMSprop(lr=learning_rate, rho=rho, decay=decay)
     elif optimizer_name == 'sgd':
-        opt = sgd(lr=learning_rate, momentum=momentum, decay=decay)
+        opt = SGD(lr=learning_rate, momentum=momentum, decay=decay)
     elif optimizer_name == 'adagrad':
-        opt = adagrad(lr=learning_rate, decay=decay)
+        opt = Adagrad(lr=learning_rate, decay=decay)
     elif optimizer_name == 'adadelta':
-        opt = adadelta(lr=learning_rate, rho=rho, decay=decay)
+        opt = Adadelta(lr=learning_rate, rho=rho, decay=decay)
     elif optimizer_name == 'adamax':
-        opt = adamax(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
+        opt = Adamax(lr=learning_rate, beta_1=beta1, beta_2=beta2, decay=decay)
     else:
         raise ValueError('An unexpected optimizer name has been encountered.')
 
@@ -203,10 +204,10 @@ def reshape_images(x: int, y: int, train: ndarray, test: ndarray) -> Tuple[ndarr
         new_x_test = empty(shape=(test.shape[0],) + new_shape)
 
         for idx in xrange(train.shape[0]):
-            new_x_train[idx] = imresize(train[idx], new_shape)
+            new_x_train[idx] = resize(train[idx], new_shape, anti_aliasing=True)
 
         for idx in xrange(test.shape[0]):
-            new_x_test[idx] = imresize(test[idx], new_shape)
+            new_x_test[idx] = resize(test[idx], new_shape, anti_aliasing=True)
 
         return new_x_train, new_x_test
     else:
