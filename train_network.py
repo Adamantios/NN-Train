@@ -2,7 +2,7 @@ from numpy.random import seed as np_seed
 from random import seed as rn_seed
 from os import environ
 from tensorflow.python import set_random_seed, ConfigProto, Session, get_default_graph
-from tensorflow.python.keras.backend import set_session
+from tensorflow.python.keras.backend import set_session, clear_session
 import logging
 import pickle
 from itertools import zip_longest
@@ -332,3 +332,5 @@ if __name__ == '__main__':
     history = train_evaluate()
     # Save results.
     save_results()
+    # Clear session.
+    clear_session()
