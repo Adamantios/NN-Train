@@ -1,5 +1,7 @@
+ipython_genutils
 matplotlib
 Pillow
-scipy
+scikit-image
 numpy
 tensorflow
+tensorflow-datasets
