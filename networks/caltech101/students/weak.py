@@ -26,16 +26,16 @@ def caltech_student_weak(n_classes: int, input_shape=None, input_tensor=None,
     x = Conv2D(64, (3, 3), padding='same', activation='relu',
                input_shape=input_shape, kernel_regularizer=l2(weight_decay))(inputs)
     x = BatchNormalization()(x)
-    x = Dropout(0.3)(x)
+    x = Dropout(0.3, seed=0)(x)
 
     x = Conv2D(128, (3, 3), padding='same', activation='relu', kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
-    x = Dropout(0.4)(x)
+    x = Dropout(0.4, seed=0)(x)
 
     x = Flatten()(x)
     x = Dense(512, kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization()(x)
-    x = Dropout(0.5)(x)
+    x = Dropout(0.5, seed=0)(x)
     outputs = Dense(n_classes, activation='softmax', name='softmax_outputs')(x)
 
     # Create model.

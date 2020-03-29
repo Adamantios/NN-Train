@@ -30,14 +30,14 @@ def omniglot_complicated_ensemble_submodel3(input_shape=None, input_tensor=None,
                kernel_regularizer=l2(weight_decay))(inputs)
     x = BatchNormalization(name='block1_batch-norm')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block1_pool')(x)
-    x = Dropout(0.3, name='block1_dropout')(x)
+    x = Dropout(0.3, name='block1_dropout', seed=0)(x)
 
     # Block2
     x = Conv2D(64, (3, 3), activation='elu', name='block2_conv1',
                kernel_regularizer=l2(weight_decay))(x)
     x = BatchNormalization(name='block2_batch-norm')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='block2_pool')(x)
-    x = Dropout(0.5, name='block2_dropout')(x)
+    x = Dropout(0.5, name='block2_dropout', seed=0)(x)
 
     # Add top layers.
     x = Flatten(name='flatten')(x)

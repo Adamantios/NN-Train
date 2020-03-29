@@ -29,7 +29,7 @@ def svhn_complicated_ensemble_submodel3(input_shape=None, input_tensor=None, n_c
     x = BatchNormalization(name='batch-norm')(x)
     x = Conv2D(64, (3, 3), padding='same', activation='elu', name='conv2', kernel_regularizer=l2(weight_decay))(x)
     x = MaxPooling2D(pool_size=(2, 2), name='pool')(x)
-    x = Dropout(0.3, name='dropout')(x)
+    x = Dropout(0.3, name='dropout', seed=0)(x)
 
     # Add top layers.
     x = Flatten(name='flatten')(x)

@@ -49,7 +49,7 @@ def cifar10_model1(n_classes: int, input_shape=None, input_tensor=None,
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block1_batch-norm2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block1_pool'))
-    model.add(Dropout(0.2, name='block1_dropout'))
+    model.add(Dropout(0.2, name='block1_dropout', seed=0))
 
     # Block2
     model.add(Conv2D(64, (3, 3), padding='same', activation='elu', name='block2_conv1',
@@ -59,7 +59,7 @@ def cifar10_model1(n_classes: int, input_shape=None, input_tensor=None,
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block2_batch-norm2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block2_pool'))
-    model.add(Dropout(0.3, name='block2_dropout'))
+    model.add(Dropout(0.3, name='block2_dropout', seed=0))
 
     # Block3
     model.add(Conv2D(128, (3, 3), padding='same', activation='elu', name='block3_conv1',
@@ -69,7 +69,7 @@ def cifar10_model1(n_classes: int, input_shape=None, input_tensor=None,
                      kernel_regularizer=l2(weight_decay)))
     model.add(BatchNormalization(name='block3_batch-norm2'))
     model.add(MaxPooling2D(pool_size=(2, 2), name='block3_pool'))
-    model.add(Dropout(0.4, name='block3_dropout'))
+    model.add(Dropout(0.4, name='block3_dropout', seed=0))
 
     # Add top layers.
     model.add(Flatten())

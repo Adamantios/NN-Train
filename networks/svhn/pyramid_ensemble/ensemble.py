@@ -35,7 +35,7 @@ def svhn_pyramid_ensemble(input_shape=None, input_tensor=None, n_classes=None,
     # Block3
     x1 = BatchNormalization(name='submodel_strong_block3_batch-norm')(x1)
     x1 = Conv2D(128, (3, 3), padding='same', activation='elu', name='submodel_strong_block3_conv')(x1)
-    x1 = Dropout(0.5, name='submodel_strong_block3_dropout')(x1)
+    x1 = Dropout(0.5, name='submodel_strong_block3_dropout', seed=0)(x1)
 
     # Add Submodel Strong top layers.
     x1 = Flatten(name='submodel_strong_flatten')(x1)

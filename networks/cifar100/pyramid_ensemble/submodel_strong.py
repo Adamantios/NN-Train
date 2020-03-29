@@ -32,7 +32,7 @@ def cifar100_pyramid_ensemble_submodel_strong(input_shape=None, input_tensor=Non
     # Block3
     x = BatchNormalization(name='block3_batch-norm')(x)
     x = Conv2D(256, (3, 3), padding='same', activation='elu', name='block3_conv')(x)
-    x = Dropout(0.5, name='block3_dropout')(x)
+    x = Dropout(0.5, name='block3_dropout', seed=0)(x)
 
     # Add Submodel Strong top layers.
     x = Flatten(name='flatten')(x)

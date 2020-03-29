@@ -23,7 +23,7 @@ def omniglot_student_weak(n_classes: int, input_shape=None, input_tensor=None,
     x = Conv2D(32, (2, 2), activation='relu', name='conv1', kernel_regularizer=l2(1e-4))(inputs)
     x = BatchNormalization(name='batch-norm')(x)
     x = MaxPooling2D(pool_size=(2, 2), name='pool')(x)
-    x = Dropout(0.3, name='dropout')(x)
+    x = Dropout(0.3, name='dropout', seed=0)(x)
 
     # Add top layers.
     x = Flatten(name='flatten')(x)
