@@ -1,5 +1,5 @@
 from numpy.random import seed as np_seed
-from random import seed as rn_seed
+from random import seed as rn_seed, random
 from os import environ
 from tensorflow.python import set_random_seed, ConfigProto, Session, get_default_graph
 from tensorflow.python.keras.backend import set_session, clear_session
@@ -27,15 +27,14 @@ from networks.available_networks import subnetworks
 
 def make_results_reproducible() -> None:
     """ Makes results reproducible. """
-    if seed >= 0:
-        environ['TF_DETERMINISTIC_OPS'] = '1'
-        environ['PYTHONHASHSEED'] = str(seed)
-        np_seed(seed)
-        rn_seed(seed)
-        session_conf = ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
-        set_random_seed(seed)
-        sess = Session(graph=get_default_graph(), config=session_conf)
-        set_session(sess)
+    environ['TF_DETERMINISTIC_OPS'] = '1'
+    environ['PYTHONHASHSEED'] = str(seed)
+    np_seed(seed)
+    rn_seed(seed)
+    session_conf = ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
+    set_random_seed(seed)
+    sess = Session(graph=get_default_graph(), config=session_conf)
+    set_session(sess)
 
 
 def load_data() -> Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], int]:
@@ -300,7 +299,10 @@ if __name__ == '__main__':
     verbosity = args.verbosity
     seed = args.seed
 
-    make_results_reproducible()
+    if seed >= 0:
+        make_results_reproducible()
+    else:
+        seed = int(random())
 
     if clip_norm is not None and clip_value is not None:
         raise ValueError('You cannot set both clip norm and clip value.')
