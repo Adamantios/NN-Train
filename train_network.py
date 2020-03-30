@@ -27,13 +27,15 @@ from networks.available_networks import subnetworks
 
 def make_results_reproducible() -> None:
     """ Makes results reproducible. """
-    environ['PYTHONHASHSEED'] = '0'
-    np_seed(0)
-    rn_seed(0)
-    session_conf = ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
-    set_random_seed(0)
-    sess = Session(graph=get_default_graph(), config=session_conf)
-    set_session(sess)
+    if seed >= 0:
+        environ['TF_DETERMINISTIC_OPS'] = '1'
+        environ['PYTHONHASHSEED'] = str(seed)
+        np_seed(seed)
+        rn_seed(seed)
+        session_conf = ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
+        set_random_seed(seed)
+        sess = Session(graph=get_default_graph(), config=session_conf)
+        set_session(sess)
 
 
 def load_data() -> Tuple[Tuple[ndarray, ndarray], Tuple[ndarray, ndarray], int]:
@@ -298,6 +300,7 @@ if __name__ == '__main__':
     evaluation_batch_size = args.evaluation_batch_size
     epochs = args.epochs
     verbosity = args.verbosity
+    seed = args.seed
 
     make_results_reproducible()
 

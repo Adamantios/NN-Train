@@ -35,6 +35,7 @@ TRAIN_BATCH_SIZE = 64
 EVAL_BATCH_SIZE = 128
 EPOCHS = 125
 VERBOSITY = 1
+SEED = 0
 
 
 # ------------------------------------------------------------------------------------------------
@@ -119,5 +120,8 @@ def create_training_parser() -> ArgumentParser:
                         help='The number of epochs to train the network (default %(default)s).')
     parser.add_argument('-v', '--verbosity', type=int, default=VERBOSITY, required=False,
                         help='The verbosity for the optimization procedure (default %(default)s).')
+    parser.add_argument('-seed', '--seed', type=int, default=SEED, required=False,
+                        help='The seed for all the random operations. Pass a negative number, '
+                             'in order to have non-deterministic behavior (default %(default)s).')
 
     return parser
