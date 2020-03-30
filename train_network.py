@@ -247,14 +247,12 @@ def train_evaluate() -> Union[History, None]:
                                          height_shift_range=0.1)
             datagen.fit(x_train)
             # Fit network.
-            hist = model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
-                                       steps_per_epoch=x_train.shape[0] // batch_size,
-                                       validation_data=(x_test, y_test),
-                                       callbacks=callbacks_list)
+            hist = model.fit(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
+                             steps_per_epoch=x_train.shape[0] // batch_size, validation_data=(x_test, y_test),
+                             callbacks=callbacks_list)
         else:
             hist = model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs,
-                             validation_data=(x_test, y_test),
-                             callbacks=callbacks_list)
+                             validation_data=(x_test, y_test), callbacks=callbacks_list)
 
         # Plot results.
         save_folder = out_folder if save_plots else None
