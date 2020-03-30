@@ -245,9 +245,9 @@ def train_evaluate() -> Union[History, None]:
             # Generate batches of tensor image data with real-time data augmentation.
             datagen = ImageDataGenerator(rotation_range=10, zoom_range=0.1, width_shift_range=0.1,
                                          height_shift_range=0.1)
-            datagen.fit(x_train)
+            datagen.fit(x_train, seed=seed)
             # Fit network.
-            hist = model.fit(datagen.flow(x_train, y_train, batch_size=batch_size), epochs=epochs,
+            hist = model.fit(datagen.flow(x_train, y_train, batch_size=batch_size, seed=seed), epochs=epochs,
                              steps_per_epoch=x_train.shape[0] // batch_size, validation_data=(x_test, y_test),
                              callbacks=callbacks_list)
         else:
