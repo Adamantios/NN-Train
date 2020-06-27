@@ -1,4 +1,4 @@
-from typing import Dict, Callable, Union, List
+from typing import Dict, Callable, Union, List, Optional, Any
 
 from numpy.core.multiarray import ndarray
 from tensorflow.python.keras import Model, Sequential
@@ -169,7 +169,8 @@ from networks.svhn.pyramid_ensemble.submodel_weak2 import svhn_pyramid_ensemble_
 from networks.svhn.students.strong import svhn_student_strong
 from networks.svhn.students.weak import svhn_student_weak
 
-NetworksType = Dict[str, Callable[[any, any, any, Union[None, str]], Union[Model, Sequential]]]
+# TODO: change networks params to have the same order and correct the networks type.
+NetworksType = Dict[str, Callable[[Any, Any, Any, Optional[str]], Union[Model, Sequential]]]
 LabelsManipulatorType = Callable[[List[ndarray]], int]
 SubnetworksType = Dict[str, LabelsManipulatorType]
 
