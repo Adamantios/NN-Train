@@ -146,9 +146,9 @@ loss: 2.3911
 categorical_accuracy: 0.6344
 ```
 ### Diagrams
-![Train Validation Accuracy](https://github.com/Adamantios/Knowledge-Transfer/blob/master/examples/acc_plot.png?raw=true)
-![Train Validation Loss](https://github.com/Adamantios/Knowledge-Transfer/blob/master/examples/loss_plot.png?raw=true)
-![Train Validation Accuracy-Loss](https://github.com/Adamantios/Knowledge-Transfer/blob/master/examples/acc_loss_plot.png?raw=true)
+![Train Validation Accuracy](https://github.com/Adamantios/NN-Train/blob/master/examples/acc_plot.png?raw=true)
+![Train Validation Loss](https://github.com/Adamantios/NN-Train/blob/master/examples/loss_plot.png?raw=true)
+![Train Validation Accuracy-Loss](https://github.com/Adamantios/NN-Train/blob/master/examples/acc_loss_plot.png?raw=true)
 ### Useful output files
 Some useful files (unless otherwise specified) are saved in the chosen out folder destination. 
 These include:
