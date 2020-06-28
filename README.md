@@ -124,17 +124,7 @@ train_network.py -sp checkpoint.h5 -e 0
 # Example Run on CIFAR-10
 ## Command
 ```
-%run 'NN-Train-Test/train_network.py' \
---dataset cifar10 \
---network cifar10_baseline_ensemble_v2_submodel2 \
---optimizer adam \
---epochs 150 \
---batch_size 64 \
---learning_rate 1e-4 \
---learning_rate_min 5e-6 \
---learning_rate_decay 0.4 \
---early_stopping_patience 0 \
---out_folder './NN-Train-Test/out/cifar10/baseline_v2/model2'
+train_network.py dataset cifar100 --network cifar100_baseline_ensemble_submodel2 --optimizer adam --epochs 150 --batch_size 64 --learning_rate 1e-4 --learning_rate_min 5e-6 --learning_rate_decay 0.4 --out_folder './NN-Train-Test/out/cifar100/baseline/model2'
 ```
 ## Results
 ### Log
