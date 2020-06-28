@@ -142,7 +142,7 @@ categorical_accuracy: 0.6344
 ### Useful output files
 Some useful files (unless otherwise specified) are saved in the chosen out folder destination. 
 These include:
--the final model's weights
--the model (in `keras` format)
--the best model's weights
--the training history
+- the final model's weights
+- the model (in `keras` format)
+- the best model's weights
+- the training history
