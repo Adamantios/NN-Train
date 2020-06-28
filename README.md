@@ -128,7 +128,7 @@ train_network.py dataset cifar100 --network cifar100_baseline_ensemble_submodel2
 ```
 ## Results
 ### Log
-The log contains all the metrics which have been chosen to be monitored. 
+The log contains the final values for all the metrics which have been chosen to be monitored. 
 These can be easily updated in the `model.compile()` method inside `main`. 
 Also, the `init_callbacks()` should be changed in order to monitor the desired metrics for the checkpoint, early stopping and learning rate decay.
 ```
